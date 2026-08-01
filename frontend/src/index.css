@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-charcoal bg-cream antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent/30;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-charcoal text-white font-medium rounded-full 
+           transition-all duration-300 hover:bg-softblack hover:shadow-lg hover:shadow-charcoal/20 
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-3.5 border-2 border-charcoal text-charcoal font-medium rounded-full 
+           transition-all duration-300 hover:bg-charcoal hover:text-white hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-gradient {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-charcoal to-softblack text-white font-medium rounded-full 
+           transition-all duration-300 hover:shadow-xl hover:shadow-charcoal/25 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 border border-sand/50;
+  }
+
+  .card-dark {
+    @apply bg-charcoal rounded-2xl shadow-lg border border-white/10;
+  }
+
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-beige/50 border border-sand rounded-xl text-charcoal placeholder-warm 
+           focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-200;
+  }
+
+  .input-field-dark {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 
+           focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-200;
+  }
+
+  .nav-link {
+    @apply text-sm font-medium text-charcoal/70 hover:text-charcoal transition-colors duration-200 relative;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-beige;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-warm rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  @apply bg-charcoal;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-white/20;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-white/30;
+}
