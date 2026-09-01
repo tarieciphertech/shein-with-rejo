@@ -1,19 +1,13 @@
 import { Link } from 'react-router-dom'
-import { 
-  HiShoppingBag, 
-  HiPhone, 
-  HiEnvelope, 
-  HiMapPin,
-  HiClock 
-} from 'react-icons/hi2'
-import { FaWhatsapp, FaInstagram, FaFacebook } from 'react-icons/fa'
-import { businessHours } from '../data/sampleData'
+import { HiPhone, HiEnvelope, HiMapPin, HiArrowRight } from 'react-icons/hi2'
+import { FaWhatsapp } from 'react-icons/fa'
+import { BUSINESS, whatsappLink, AFFILIATION_DISCLAIMER } from '../config'
 
 const quickLinks = [
   { path: '/', label: 'Home' },
-  { path: '/about', label: 'About Us' },
+  { path: '/about', label: 'About' },
   { path: '/how-it-works', label: 'How It Works' },
-  { path: '/submit-order', label: 'Submit Order' },
+  { path: '/submit-order', label: 'Send a Request' },
   { path: '/track-order', label: 'Track Order' },
   { path: '/faq', label: 'FAQ' },
   { path: '/contact', label: 'Contact' },
@@ -21,124 +15,98 @@ const quickLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-charcoal dark:bg-black text-white pt-16 pb-8">
-      <div className="section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+    <footer className="bg-ink text-cream/80">
+      <div className="section-padding pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                <HiShoppingBag className="w-5 h-5 text-charcoal" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold leading-tight">SHEIN</span>
-                <span className="text-xs font-medium text-accent leading-tight">with Rejo</span>
-              </div>
+          <div className="lg:col-span-4">
+            <Link to="/" className="inline-flex items-center gap-2.5 mb-5" aria-label={`${BUSINESS.name} — home`}>
+              <span className="w-9 h-9 rounded-full bg-cream text-ink flex items-center justify-center font-display font-bold text-lg" aria-hidden="true">R</span>
+              <span className="flex flex-col leading-none">
+                <span className="text-[15px] font-semibold tracking-tight text-cream">SHEIN <span className="font-display italic font-medium">with</span> Rejo</span>
+                <span className="text-[10px] uppercase tracking-widest2 mt-0.5 text-cream/50">Harare · Zimbabwe</span>
+              </span>
             </Link>
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
-              Your trusted partner for easy SHEIN ordering in Zimbabwe. 
-              We handle everything so you can shop with confidence.
+            <p className="text-sm leading-relaxed text-cream/60 max-w-xs">
+              A personal ordering service helping you get the SHEIN pieces you love, here in Zimbabwe. Orders go in every {BUSINESS.orderingCycleDays} days, with free delivery in Harare.
             </p>
-            <div className="flex gap-3">
-              <a 
-                href="https://wa.me/263784487866" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 transition-colors"
-              >
-                <FaWhatsapp className="w-5 h-5" />
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-pink-500 transition-colors"
-              >
-                <FaInstagram className="w-5 h-5" />
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-500 transition-colors"
-              >
-                <FaFacebook className="w-5 h-5" />
-              </a>
-            </div>
+            <a
+              href={whatsappLink('Hi Rejo, I have a question about placing a SHEIN order.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-cream hover:text-white transition-colors"
+            >
+              <span className="w-9 h-9 rounded-full bg-[#25D366]/15 flex items-center justify-center">
+                <FaWhatsapp className="w-5 h-5 text-[#25D366]" />
+              </span>
+              Chat with Rejo on WhatsApp
+            </a>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Quick Links</h3>
+          <nav className="lg:col-span-3" aria-label="Footer navigation">
+            <h2 className="text-xs font-semibold uppercase tracking-widest2 text-cream/40 mb-4">Explore</h2>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.path}>
-                  <Link 
-                    to={link.path}
-                    className="text-white/60 hover:text-white text-sm transition-colors"
-                  >
+                  <Link to={link.path} className="text-sm text-cream/70 hover:text-cream transition-colors">
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
+          </nav>
+
+          {/* Good to know */}
+          <div className="lg:col-span-2">
+            <h2 className="text-xs font-semibold uppercase tracking-widest2 text-cream/40 mb-4">Good to know</h2>
+            <ul className="space-y-3 text-sm text-cream/70">
+              <li>Orders every {BUSINESS.orderingCycleDays} days</li>
+              <li>Free delivery in Harare</li>
+              <li>EcoCash · Cash · PayPal</li>
+            </ul>
           </div>
 
           {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Contact</h3>
+          <div className="lg:col-span-3">
+            <h2 className="text-xs font-semibold uppercase tracking-widest2 text-cream/40 mb-4">Contact</h2>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <HiPhone className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm text-white/60">Phone</p>
-                  <a href="tel:+263784487866" className="text-sm hover:text-accent transition-colors">
-                    0784 487 866
-                  </a>
-                </div>
+                <HiPhone className="w-4 h-4 text-clay shrink-0 mt-0.5" aria-hidden="true" />
+                <a href={`tel:${BUSINESS.phoneIntl}`} className="text-sm hover:text-cream transition-colors">
+                  {BUSINESS.phoneDisplay}
+                </a>
               </li>
               <li className="flex items-start gap-3">
-                <HiEnvelope className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm text-white/60">Email</p>
-                  <a href="mailto:remudzamba@gmail.com" className="text-sm hover:text-accent transition-colors">
-                    remudzamba@gmail.com
-                  </a>
-                </div>
+                <HiEnvelope className="w-4 h-4 text-clay shrink-0 mt-0.5" aria-hidden="true" />
+                <a href={`mailto:${BUSINESS.email}`} className="text-sm hover:text-cream transition-colors break-all">
+                  {BUSINESS.email}
+                </a>
               </li>
               <li className="flex items-start gap-3">
-                <HiMapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm text-white/60">Location</p>
-                  <p className="text-sm">Harare, Zimbabwe</p>
-                </div>
+                <HiMapPin className="w-4 h-4 text-clay shrink-0 mt-0.5" aria-hidden="true" />
+                <span className="text-sm">{BUSINESS.location}</span>
               </li>
             </ul>
-          </div>
-
-          {/* Business Hours */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Business Hours</h3>
-            <ul className="space-y-3">
-              {businessHours.map((item) => (
-                <li key={item.day} className="flex items-start gap-3">
-                  <HiClock className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-medium">{item.day}</p>
-                    <p className="text-sm text-white/60">{item.hours}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <Link to="/submit-order" className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-clay hover:text-white transition-colors">
+              Send a SHEIN request
+              <HiArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/10">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-white/40 text-sm text-center sm:text-left">
-              &copy; {new Date().getFullYear()} SHEIN with Rejo. All rights reserved.
-            </p>
-            <p className="text-white/40 text-sm">
-              Website developed by <a href="https://tarieciphertech.github.io/cyphertech-v2/" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-white transition-colors">Cypher Technologies ⚡</a>
-            </p>
-          </div>
+        {/* Disclaimer */}
+        <p className="mt-12 text-xs leading-relaxed text-cream/40 max-w-3xl">
+          {AFFILIATION_DISCLAIMER} The SHEIN name is used only to describe the service — helping customers order items they have found on SHEIN.
+        </p>
+
+        <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-cream/40 text-xs text-center sm:text-left">
+            &copy; {new Date().getFullYear()} {BUSINESS.name}. All rights reserved.
+          </p>
+          <p className="text-cream/40 text-xs">
+            Website developed by <a href="https://tarieciphertech.github.io/cyphertech-v2/" target="_blank" rel="noopener noreferrer" className="text-clay hover:text-cream transition-colors">Cypher Technologies</a>
+          </p>
         </div>
       </div>
     </footer>

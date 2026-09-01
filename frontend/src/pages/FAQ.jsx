@@ -1,97 +1,108 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiChevronDown, HiQuestionMarkCircle } from 'react-icons/hi2'
+import { HiChevronDown, HiArrowRight } from 'react-icons/hi2'
 import SEO from '../components/SEO'
-import { faqs } from '../data/sampleData'
+import PageHeader from '../components/PageHeader'
+import Reveal from '../components/Reveal'
+import { faqs } from '../data/content'
+import { whatsappLink, WHATSAPP_MESSAGES } from '../config'
 
 function FAQItem({ faq, index }) {
   const [isOpen, setIsOpen] = useState(false)
+  const panelId = `faq-panel-${index}`
+  const buttonId = `faq-button-${index}`
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="border-b border-sand dark:border-white/10 last:border-0"
-    >
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between py-5 text-left group"
-      >
-        <span className="text-base sm:text-lg font-medium text-charcoal dark:text-white pr-4 group-hover:text-accent transition-colors">
-          {faq.question}
-        </span>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="shrink-0"
+    <div className="border-b border-sand dark:border-white/10 last:border-0">
+      <h3>
+        <button
+          id={buttonId}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          className="w-full flex items-center justify-between gap-4 py-5 text-left group"
         >
-          <HiChevronDown className="w-5 h-5 text-charcoal/50 dark:text-white/50" />
-        </motion.div>
-      </button>
-      <AnimatePresence>
+          <span className="text-base sm:text-lg font-medium text-ink dark:text-cream group-hover:text-clay transition-colors">
+            {faq.question}
+          </span>
+          <motion.span
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+            className="shrink-0 text-clay"
+          >
+            <HiChevronDown className="w-5 h-5" aria-hidden="true" />
+          </motion.span>
+        </button>
+      </h3>
+      <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            id={panelId}
+            role="region"
+            aria-labelledby={buttonId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.28, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-charcoal/70 dark:text-white/70 leading-relaxed pr-8">
+            <p className="pb-5 text-charcoal/70 dark:text-cream/70 leading-relaxed pr-8">
               {faq.answer}
             </p>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   )
 }
 
 export default function FAQ() {
   return (
     <>
-      <SEO 
+      <SEO
         title="FAQ | SHEIN with Rejo"
-        description="Find answers to frequently asked questions about ordering from SHEIN with Rejo."
+        description="Answers to common questions about ordering from SHEIN with Rejo — payments, the 3-day ordering cycle, delivery in Harare, tracking and more."
         path="/faq"
       />
 
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 min-h-screen">
-        <div className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl mx-auto"
-          >
-            <div className="text-center mb-12">
-              <span className="text-accent text-sm font-semibold uppercase tracking-wider">Support</span>
-              <h1 className="font-display text-4xl sm:text-5xl font-bold text-charcoal dark:text-white mt-3 mb-4">
-                Frequently Asked Questions
-              </h1>
-              <p className="text-charcoal/70 dark:text-white/70 max-w-xl mx-auto">
-                Got questions? We have got answers. If you cannot find what you are looking for, 
-                feel free to contact us.
-              </p>
-            </div>
+      <PageHeader
+        eyebrow="FAQ"
+        title={<>Questions, <span className="italic text-clay">answered honestly.</span></>}
+      >
+        <p>
+          Everything customers usually ask before sending their first request. If your question
+          isn't here, just message Rejo on WhatsApp.
+        </p>
+      </PageHeader>
 
-            <div className="card p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-sand dark:border-white/10">
-                <HiQuestionMarkCircle className="w-6 h-6 text-accent" />
-                <h2 className="text-lg font-semibold text-charcoal dark:text-white">
-                  Common Questions
-                </h2>
-              </div>
-
-              <div>
-                {faqs.map((faq, index) => (
-                  <FAQItem key={index} faq={faq} index={index} />
-                ))}
-              </div>
+      <section className="pb-20 lg:pb-28">
+        <div className="section-padding max-w-3xl mx-auto">
+          <Reveal>
+            <div className="bg-white dark:bg-charcoal rounded-2xl border border-sand dark:border-white/10 px-6 sm:px-10 py-4">
+              {faqs.map((faq, index) => (
+                <FAQItem key={faq.question} faq={faq} index={index} />
+              ))}
             </div>
-          </motion.div>
+          </Reveal>
+
+          <Reveal delay={0.08} className="mt-10 text-center">
+            <p className="text-charcoal/70 dark:text-cream/70 mb-4">Still not sure about something?</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-3.5">
+              <a
+                href={whatsappLink(WHATSAPP_MESSAGES.general)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary dark:!border-cream/40 dark:!text-cream dark:hover:!bg-cream dark:hover:!text-ink"
+              >
+                Ask on WhatsApp
+              </a>
+              <Link to="/submit-order" className="btn-accent">
+                Send a Request
+                <HiArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  frontend:
+    name: Frontend — install, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install
+        working-directory: frontend
+        run: npm ci
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+
+  backend:
+    name: Backend — install, checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+      - name: Install
+        working-directory: backend
+        run: npm ci
+      - name: Syntax check
+        working-directory: backend
+        run: npm run check
+
+  backend-smoke:
+    name: Backend — API smoke test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: shein_with_rejo_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/shein_with_rejo_test
+      JWT_SECRET: ci-only-secret-not-used-in-production
+      ADMIN_EMAIL: admin@test.example
+      ADMIN_PASSWORD_HASH: $2a$12$LJ3m4gM9sdAXcZxmOVosNulDNYH8tMqAq6kLu4b5wxO4ZgVFmS8QW
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+      - name: Install
+        working-directory: backend
+        run: npm ci
+      - name: Migrate
+        working-directory: backend
+        run: npm run migrate
+      - name: Start API and smoke test
+        working-directory: backend
+        run: |
+          node server.js &
+          sleep 3
+          curl -sf http://localhost:5000/api/health
+          echo
+          RESP=$(curl -sf -X POST http://localhost:5000/api/orders \
+            -F 'payload={"items":[{"url":"https://www.shein.com/test-p-1.html","size":"M","quantity":1}],"customer":{"name":"Smoke Test","phone":"0772111222"},"delivery":{"area":"Harare CBD"}}')
+          echo "$RESP"
+          REF=$(echo "$RESP" | grep -o 'SWR-[A-Z0-9]*')
+          curl -sf "http://localhost:5000/api/orders/track?reference=$REF&phone=0772111222" > /dev/null
+          echo "Smoke test passed for reference $REF"

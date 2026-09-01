@@ -11,7 +11,7 @@ export default function LoadingSpinner({ size = 'md' }) {
     <motion.div
       animate={{ rotate: 360 }}
       transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-      className={`${sizes[size]} border-2 border-accent/30 border-t-accent rounded-full`}
+      className={`${sizes[size]} border-2 border-clay/30 border-t-clay rounded-full`}
     />
   )
 }

@@ -1,171 +1,110 @@
-import { motion } from 'framer-motion'
-import { HiHeart, HiShieldCheck, HiEye } from 'react-icons/hi2'
+import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
-
-const values = [
-  {
-    icon: HiHeart,
-    title: 'Customer First',
-    description: 'Your satisfaction is our priority. We go above and beyond to ensure every order is handled with care.',
-  },
-  {
-    icon: HiShieldCheck,
-    title: 'Reliability',
-    description: 'We deliver on our promises. Every order is tracked, every delivery is confirmed.',
-  },
-  {
-    icon: HiEye,
-    title: 'Transparency',
-    description: 'No hidden fees, no surprises. You know exactly what you are paying for before we place any order.',
-  },
-]
+import PageHeader from '../components/PageHeader'
+import Reveal from '../components/Reveal'
+import { BUSINESS, whatsappLink, AFFILIATION_DISCLAIMER } from '../config'
 
 export default function About() {
   return (
     <>
-      <SEO 
-        title="About Us | SHEIN with Rejo"
-        description="Learn about SHEIN with Rejo - your trusted partner for easy SHEIN ordering in Zimbabwe."
+      <SEO
+        title="About | SHEIN with Rejo"
+        description="SHEIN with Rejo is an independent, Harare-based ordering service helping Zimbabwean customers get the items they find on SHEIN — without the payment and shipping headaches."
         path="/about"
       />
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
-        <div className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <span className="text-accent text-sm font-semibold uppercase tracking-wider">About Us</span>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal dark:text-white mt-3 mb-6">
-              Simplifying SHEIN Shopping
-            </h1>
-            <p className="text-lg text-charcoal/70 dark:text-white/70 leading-relaxed">
-              We are a dedicated service that makes ordering from SHEIN simple, reliable, 
-              and accessible for customers in Zimbabwe.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHeader eyebrow="About" title={<>A real person, helping real shoppers <span className="italic text-clay">in Harare.</span></>}>
+        <p>
+          SHEIN with Rejo is a personal ordering service. Not a shop with its own stock, and not
+          SHEIN — an independent helper between you and the things you've found on SHEIN.
+        </p>
+      </PageHeader>
 
-      {/* Story Section */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-charcoal">
-        <div className="section-padding">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="aspect-[4/3] bg-gradient-to-br from-beige to-sand dark:from-charcoal dark:to-softblack rounded-3xl flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-20 h-20 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <span className="text-4xl font-display font-bold text-accent">R</span>
-                    </div>
-                    <p className="font-display text-2xl font-bold text-charcoal dark:text-white">SHEIN with Rejo</p>
-                    <p className="text-charcoal/60 dark:text-white/60 mt-2">Your Shopping Partner</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal dark:text-white mb-6">
-                  Our Story
-                </h2>
-                <div className="space-y-4 text-charcoal/70 dark:text-white/70 leading-relaxed">
-                  <p>
-                    SHEIN with Rejo was born out of a simple observation: many people in Zimbabwe 
-                    love shopping on SHEIN but find the international ordering process complicated 
-                    and unreliable.
-                  </p>
-                  <p>
-                    We set out to bridge that gap by offering a streamlined, trustworthy service 
-                    that handles everything from order placement to local delivery. Our goal is 
-                    to make global fashion accessible to everyone in Zimbabwe.
-                  </p>
-                  <p>
-                    Today, we serve hundreds of happy customers across Harare and beyond, 
-                    placing orders every three days and ensuring each package arrives safely 
-                    at its destination.
+      {/* Story */}
+      <section className="pb-20 lg:pb-28">
+        <div className="section-padding max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-12">
+            <Reveal direction="right" className="lg:col-span-5">
+              <div className="lg:sticky lg:top-28">
+                <div className="aspect-[4/5] rounded-2xl bg-linen dark:bg-white/5 border border-sand dark:border-white/10 flex flex-col items-center justify-center gap-4 p-8">
+                  <span className="w-24 h-24 rounded-full bg-ink dark:bg-cream text-cream dark:text-ink flex items-center justify-center font-display text-5xl font-medium" aria-hidden="true">R</span>
+                  <p className="font-display italic text-xl text-charcoal/70 dark:text-cream/70 text-center">Photo coming soon</p>
+                  <p className="text-xs text-charcoal/40 dark:text-cream/40 text-center max-w-[200px]">
+                    An authentic photo of Rejo will replace this placeholder.
                   </p>
                 </div>
-              </motion.div>
+              </div>
+            </Reveal>
+
+            <div className="lg:col-span-7 space-y-10">
+              <Reveal>
+                <h2 className="font-display text-2xl sm:text-3xl text-ink dark:text-cream mb-4">Why it exists</h2>
+                <div className="space-y-4 text-charcoal/70 dark:text-cream/70 leading-relaxed">
+                  <p>
+                    If you've ever saved something on SHEIN and then hit the wall — cards that don't work
+                    here, shipping that doesn't reach Zimbabwe, checkout pages that fail at the last step —
+                    you know the frustration. The item is right there. You just can't get it.
+                  </p>
+                  <p>
+                    SHEIN with Rejo was started to close that gap. You find the item; Rejo handles the
+                    ordering, the payment process and the delivery, and keeps you updated until it reaches
+                    your door in Harare.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal>
+                <h2 className="font-display text-2xl sm:text-3xl text-ink dark:text-cream mb-4">How it works, in short</h2>
+                <div className="space-y-4 text-charcoal/70 dark:text-cream/70 leading-relaxed">
+                  <p>
+                    You send a product link or a screenshot, with your size, colour and quantity. Rejo reviews
+                    the request and confirms the details with you. Once payment is settled, your order joins
+                    the next ordering cycle — orders go in every {BUSINESS.orderingCycleDays} days. Then you track
+                    it and receive it, with free delivery in Harare.
+                  </p>
+                  <p>
+                    You don't need a SHEIN account, an international payment card, or any special app.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal>
+                <h2 className="font-display text-2xl sm:text-3xl text-ink dark:text-cream mb-4">Who is behind it</h2>
+                <div className="space-y-4 text-charcoal/70 dark:text-cream/70 leading-relaxed">
+                  <p>
+                    Rejo — the R in the logo — runs the service day to day: reviewing requests, answering
+                    WhatsApps, placing the orders and arranging delivery. When you message the business,
+                    you're talking to a person, not a bot.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal>
+                <div className="bg-linen dark:bg-white/5 rounded-2xl p-6 sm:p-8">
+                  <h3 className="font-semibold text-ink dark:text-cream mb-2">Being clear about who we are</h3>
+                  <p className="text-sm text-charcoal/70 dark:text-cream/70 leading-relaxed">
+                    {AFFILIATION_DISCLAIMER} We never claim to be an official SHEIN store, and we don't sell
+                    our own inventory — we help you order the items <em>you</em> have chosen.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal>
+                <div className="flex flex-wrap gap-3.5">
+                  <Link to="/submit-order" className="btn-accent">
+                    Send a Request
+                  </Link>
+                  <a
+                    href={whatsappLink('Hi Rejo, I have a question about placing a SHEIN order.')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary dark:!border-cream/40 dark:!text-cream dark:hover:!bg-cream dark:hover:!text-ink"
+                  >
+                    WhatsApp Rejo
+                  </a>
+                </div>
+              </Reveal>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="py-16 lg:py-24">
-        <div className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center card p-8 sm:p-12 lg:p-16"
-          >
-            <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <HiShieldCheck className="w-8 h-8 text-accent" />
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal dark:text-white mb-4">
-              Our Mission
-            </h2>
-            <p className="text-lg text-charcoal/70 dark:text-white/70 leading-relaxed max-w-2xl mx-auto">
-              To provide a simple, reliable, and affordable SHEIN ordering service that 
-              empowers Zimbabweans to access global fashion without the complexity of 
-              international shipping and payment barriers.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-16 lg:py-24 bg-white dark:bg-charcoal">
-        <div className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-2xl mx-auto mb-16"
-          >
-            <span className="text-accent text-sm font-semibold uppercase tracking-wider">Our Values</span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal dark:text-white mt-3">
-              What We Stand For
-            </h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card p-8 text-center"
-              >
-                <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-5">
-                  <value.icon className="w-7 h-7 text-accent" />
-                </div>
-                <h3 className="text-xl font-semibold text-charcoal dark:text-white mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-charcoal/60 dark:text-white/60 text-sm leading-relaxed">
-                  {value.description}
-                </p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

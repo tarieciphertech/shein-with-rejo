@@ -1,232 +1,141 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { 
-  HiPhone, 
-  HiEnvelope, 
+import { Link } from 'react-router-dom'
+import {
+  HiPhone,
+  HiEnvelope,
   HiMapPin,
-  HiClock,
-  HiPaperAirplane
+  HiArrowRight,
+  HiChatBubbleLeftRight,
 } from 'react-icons/hi2'
 import { FaWhatsapp } from 'react-icons/fa'
 import SEO from '../components/SEO'
-import LoadingSpinner from '../components/LoadingSpinner'
+import PageHeader from '../components/PageHeader'
+import Reveal from '../components/Reveal'
+import { BUSINESS, whatsappLink, WHATSAPP_MESSAGES } from '../config'
+
+const channels = [
+  {
+    icon: FaWhatsapp,
+    title: 'WhatsApp — fastest reply',
+    value: BUSINESS.phoneDisplay,
+    href: whatsappLink(WHATSAPP_MESSAGES.general),
+    external: true,
+    note: 'Best for quick questions, order updates and sending screenshots.',
+    highlight: true,
+  },
+  {
+    icon: HiPhone,
+    title: 'Phone',
+    value: BUSINESS.phoneDisplay,
+    href: `tel:${BUSINESS.phoneIntl}`,
+    external: true,
+    note: 'Prefer to talk it through? Give Rejo a call.',
+  },
+  {
+    icon: HiEnvelope,
+    title: 'Email',
+    value: BUSINESS.email,
+    href: `mailto:${BUSINESS.email}`,
+    external: true,
+    note: 'Good for longer questions or detailed requests.',
+  },
+  {
+    icon: HiMapPin,
+    title: 'Where we operate',
+    value: BUSINESS.location,
+    note: 'Delivery is currently free within Harare. Outside Harare? Message us to talk about your options.',
+  },
+]
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSent, setIsSent] = useState(false)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSent(true)
-  }
-
   return (
     <>
-      <SEO 
-        title="Contact Us | SHEIN with Rejo"
-        description="Get in touch with SHEIN with Rejo. Call, email, or message us on WhatsApp."
+      <SEO
+        title="Contact | SHEIN with Rejo"
+        description="Reach SHEIN with Rejo on WhatsApp or by phone at 0784 487 866, or email remudzamba@gmail.com. Serving customers in Harare, Zimbabwe."
         path="/contact"
       />
 
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 min-h-screen">
-        <div className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-accent text-sm font-semibold uppercase tracking-wider">Get In Touch</span>
-              <h1 className="font-display text-4xl sm:text-5xl font-bold text-charcoal dark:text-white mt-3 mb-4">
-                Contact Us
-              </h1>
-              <p className="text-charcoal/70 dark:text-white/70">
-                Have questions or need help? We are here for you. Reach out through any of the channels below.
-              </p>
-            </div>
+      <PageHeader
+        eyebrow="Contact"
+        title={<>Talk to <span className="italic text-clay">Rejo directly.</span></>}
+      >
+        <p>
+          No ticket numbers, no call centre. Messages go straight to the person who will
+          handle your order.
+        </p>
+      </PageHeader>
 
-            <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12">
-              {/* Contact Info */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="space-y-6"
-              >
-                {/* WhatsApp CTA */}
-                <a
-                  href="https://wa.me/263784487866"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card p-6 flex items-center gap-4 hover:shadow-lg transition-shadow group"
-                >
-                  <div className="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <FaWhatsapp className="w-7 h-7 text-white" />
+      <section className="pb-20 lg:pb-28">
+        <div className="section-padding max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-5">
+            {channels.map((channel, index) => {
+              const Icon = channel.icon
+              const inner = (
+                <>
+                  <div className="flex items-start justify-between">
+                    <span
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                        channel.highlight
+                          ? 'bg-[#25D366] text-white'
+                          : 'bg-clay-soft dark:bg-clay/15 text-clay-deep dark:text-clay'
+                      }`}
+                    >
+                      <Icon className="w-6 h-6" aria-hidden="true" />
+                    </span>
+                    {channel.external && (
+                      <HiArrowRight className="w-5 h-5 text-taupe group-hover:text-clay transition-colors" aria-hidden="true" />
+                    )}
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-charcoal dark:text-white">Chat on WhatsApp</h3>
-                    <p className="text-sm text-charcoal/60 dark:text-white/60">Fastest response time</p>
-                  </div>
-                </a>
-
-                {/* Contact Cards */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="card p-5">
-                    <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
-                      <HiPhone className="w-5 h-5 text-accent" />
-                    </div>
-                    <h3 className="text-sm font-medium text-charcoal dark:text-white mb-1">Phone</h3>
-                    <a href="tel:+263784487866" className="text-sm text-charcoal/70 dark:text-white/70 hover:text-accent transition-colors">
-                      0784 487 866
-                    </a>
-                  </div>
-
-                  <div className="card p-5">
-                    <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
-                      <HiEnvelope className="w-5 h-5 text-accent" />
-                    </div>
-                    <h3 className="text-sm font-medium text-charcoal dark:text-white mb-1">Email</h3>
-                    <a href="mailto:remudzamba@gmail.com" className="text-sm text-charcoal/70 dark:text-white/70 hover:text-accent transition-colors break-all">
-                      remudzamba@gmail.com
-                    </a>
-                  </div>
-
-                  <div className="card p-5">
-                    <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
-                      <HiMapPin className="w-5 h-5 text-accent" />
-                    </div>
-                    <h3 className="text-sm font-medium text-charcoal dark:text-white mb-1">Location</h3>
-                    <p className="text-sm text-charcoal/70 dark:text-white/70">
-                      Harare, Zimbabwe
-                    </p>
-                  </div>
-
-                  <div className="card p-5">
-                    <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
-                      <HiClock className="w-5 h-5 text-accent" />
-                    </div>
-                    <h3 className="text-sm font-medium text-charcoal dark:text-white mb-1">Hours</h3>
-                    <p className="text-sm text-charcoal/70 dark:text-white/70">
-                      Mon-Sat: 8AM - 6PM
-                    </p>
-                  </div>
-                </div>
-
-                {/* Map Placeholder */}
-                <div className="card overflow-hidden">
-                  <div className="aspect-video bg-beige dark:bg-white/5 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <HiMapPin className="w-10 h-10 text-accent mx-auto mb-3" />
-                      <p className="text-sm text-charcoal/60 dark:text-white/60">
-                        Google Maps integration coming soon
-                      </p>
-                      <p className="text-xs text-charcoal/40 dark:text-white/40 mt-1">
-                        Harare, Zimbabwe
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Contact Form */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="card p-6 sm:p-8">
-                  {isSent ? (
-                    <div className="text-center py-12">
-                      <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <HiPaperAirplane className="w-8 h-8 text-green-600 dark:text-green-400" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-charcoal dark:text-white mb-2">
-                        Message Sent!
-                      </h3>
-                      <p className="text-charcoal/60 dark:text-white/60 text-sm">
-                        We will get back to you as soon as possible.
-                      </p>
-                    </div>
+                  <h2 className="mt-4 text-lg font-semibold text-ink dark:text-cream">{channel.title}</h2>
+                  {channel.href ? (
+                    <p className="mt-1 text-clay-deep dark:text-clay font-medium break-all">{channel.value}</p>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                      <h3 className="text-lg font-semibold text-charcoal dark:text-white mb-2">
-                        Send Us a Message
-                      </h3>
-
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-charcoal dark:text-white mb-1.5">
-                            Name *
-                          </label>
-                          <input
-                            required
-                            className="input-field dark:input-field-dark"
-                            placeholder="Your name"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-charcoal dark:text-white mb-1.5">
-                            Email *
-                          </label>
-                          <input
-                            type="email"
-                            required
-                            className="input-field dark:input-field-dark"
-                            placeholder="you@example.com"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal dark:text-white mb-1.5">
-                          Subject
-                        </label>
-                        <input
-                          className="input-field dark:input-field-dark"
-                          placeholder="How can we help?"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal dark:text-white mb-1.5">
-                          Message *
-                        </label>
-                        <textarea
-                          required
-                          rows={5}
-                          className="input-field dark:input-field-dark resize-none"
-                          placeholder="Tell us more about your inquiry..."
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="btn-gradient w-full disabled:opacity-70"
-                      >
-                        {isSubmitting ? (
-                          <span className="flex items-center justify-center gap-2">
-                            <LoadingSpinner size="sm" />
-                            Sending...
-                          </span>
-                        ) : (
-                          <>
-                            Send Message
-                            <HiPaperAirplane className="w-5 h-5 ml-2" />
-                          </>
-                        )}
-                      </button>
-                    </form>
+                    <p className="mt-1 text-ink dark:text-cream font-medium">{channel.value}</p>
                   )}
-                </div>
-              </motion.div>
+                  <p className="mt-2 text-sm text-charcoal/60 dark:text-cream/60 leading-relaxed">{channel.note}</p>
+                </>
+              )
+              const classes = `card p-6 sm:p-7 block group hover:shadow-lg hover:shadow-ink/5 ${
+                channel.href ? 'cursor-pointer' : ''
+              }`
+              return channel.href ? (
+                <Reveal key={channel.title} delay={index * 0.05}>
+                  <a
+                    href={channel.href}
+                    target={channel.external && channel.href.startsWith('http') ? '_blank' : undefined}
+                    rel={channel.external && channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className={classes}
+                  >
+                    {inner}
+                  </a>
+                </Reveal>
+              ) : (
+                <Reveal key={channel.title} delay={index * 0.05}>
+                  <div className={classes}>{inner}</div>
+                </Reveal>
+              )
+            })}
+          </div>
+
+          {/* Ready to order */}
+          <Reveal delay={0.1} className="mt-14">
+            <div className="card-dark p-8 sm:p-12 text-center">
+              <HiChatBubbleLeftRight className="w-10 h-10 text-clay mx-auto mb-4" aria-hidden="true" />
+              <h2 className="font-display text-2xl sm:text-3xl text-cream mb-3">Ready to send your first request?</h2>
+              <p className="text-cream/70 max-w-xl mx-auto">
+                You don't need everything figured out — a link or a screenshot is enough to start.
+              </p>
+              <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3.5">
+                <Link to="/submit-order" className="btn-accent">
+                  Send a SHEIN Request
+                  <HiArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+                <Link to="/faq" className="btn-ghost-light">
+                  Read the FAQ first
+                </Link>
+              </div>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
     </>

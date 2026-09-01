@@ -1,23 +1,45 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  HiMenu, 
-  HiX, 
-  HiSun, 
+import {
+  HiBars3,
+  HiXMark,
+  HiSun,
   HiMoon,
-  HiShoppingBag 
-} from 'react-icons/hi'
+  HiArrowRight,
+} from 'react-icons/hi2'
+import { BUSINESS } from '../config'
 
 const navLinks = [
   { path: '/', label: 'Home' },
   { path: '/about', label: 'About' },
   { path: '/how-it-works', label: 'How It Works' },
-  { path: '/submit-order', label: 'Submit Order' },
   { path: '/track-order', label: 'Track Order' },
   { path: '/faq', label: 'FAQ' },
   { path: '/contact', label: 'Contact' },
 ]
+
+function BrandMark({ dark = false }) {
+  return (
+    <span className="flex items-center gap-2.5" aria-hidden="true">
+      <span
+        className={`w-9 h-9 rounded-full flex items-center justify-center font-display font-bold text-lg transition-colors ${
+          dark ? 'bg-cream text-ink' : 'bg-ink text-cream'
+        }`}
+      >
+        R
+      </span>
+      <span className="flex flex-col leading-none">
+        <span className={`text-[15px] font-semibold tracking-tight ${dark ? 'text-cream' : 'text-ink'}`}>
+          SHEIN <span className="font-display italic font-medium">with</span> Rejo
+        </span>
+        <span className={`text-[10px] uppercase tracking-widest2 mt-0.5 ${dark ? 'text-cream/50' : 'text-clay'}`}>
+          Harare · Zimbabwe
+        </span>
+      </span>
+    </span>
+  )
+}
 
 export default function Navbar({ isDark, toggleDarkMode }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -26,9 +48,10 @@ export default function Navbar({ isDark, toggleDarkMode }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      setIsScrolled(window.scrollY > 16)
     }
-    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -36,138 +59,133 @@ export default function Navbar({ isDark, toggleDarkMode }) {
     setIsMobileMenuOpen(false)
   }, [location])
 
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
+
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white/90 dark:bg-charcoal/90 backdrop-blur-lg shadow-sm'
+          isScrolled || isMobileMenuOpen
+            ? 'bg-cream/95 dark:bg-ink/95 backdrop-blur-md border-b border-sand/80 dark:border-white/10'
             : 'bg-transparent'
         }`}
       >
-        <div className="section-padding">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-charcoal dark:bg-white rounded-xl flex items-center justify-center transition-transform group-hover:scale-105">
-                <HiShoppingBag className="w-5 h-5 text-white dark:text-charcoal" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-charcoal dark:text-white leading-tight">SHEIN</span>
-                <span className="text-xs font-medium text-accent leading-tight">with Rejo</span>
-              </div>
+        <nav className="section-padding" aria-label="Main navigation">
+          <div className="flex items-center justify-between h-16 lg:h-[76px]">
+            <Link to="/" className="group" aria-label={`${BUSINESS.name} — home`}>
+              <BrandMark />
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-7">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`nav-link ${
-                    location.pathname === link.path ? 'text-charcoal dark:text-white after:w-full' : ''
-                  } dark:text-white/70 dark:hover:text-white`}
+                  className={`nav-link dark:text-cream/70 dark:hover:text-cream ${
+                    location.pathname === link.path
+                      ? 'text-ink dark:text-cream after:w-full'
+                      : ''
+                  }`}
+                  aria-current={location.pathname === link.path ? 'page' : undefined}
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
 
-            {/* Right Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <button
                 onClick={toggleDarkMode}
-                className="w-10 h-10 rounded-full bg-beige dark:bg-white/10 flex items-center justify-center 
-                           hover:bg-sand dark:hover:bg-white/20 transition-colors"
-                aria-label="Toggle dark mode"
+                className="w-10 h-10 rounded-full border border-sand dark:border-white/15 flex items-center justify-center hover:border-clay transition-colors"
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {isDark ? (
-                  <HiSun className="w-5 h-5 text-amber-400" />
+                  <HiSun className="w-[18px] h-[18px] text-amber-300" />
                 ) : (
-                  <HiMoon className="w-5 h-5 text-charcoal" />
+                  <HiMoon className="w-[18px] h-[18px] text-ink dark:text-cream" />
                 )}
               </button>
 
               <Link
                 to="/submit-order"
-                className="hidden sm:inline-flex btn-primary text-sm px-6 py-2.5"
+                className="hidden sm:inline-flex items-center gap-2 bg-clay text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-clay-deep transition-colors"
               >
-                Start Your Order
+                Send a Request
+                <HiArrowRight className="w-4 h-4" />
               </Link>
 
-              {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden w-10 h-10 rounded-full bg-beige dark:bg-white/10 flex items-center justify-center"
-                aria-label="Toggle menu"
+                className="lg:hidden w-10 h-10 rounded-full border border-sand dark:border-white/15 flex items-center justify-center"
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? (
-                  <HiX className="w-5 h-5 text-charcoal dark:text-white" />
+                  <HiXMark className="w-5 h-5 text-ink dark:text-cream" />
                 ) : (
-                  <HiMenu className="w-5 h-5 text-charcoal dark:text-white" />
+                  <HiBars3 className="w-5 h-5 text-ink dark:text-cream" />
                 )}
               </button>
             </div>
           </div>
-        </div>
-      </motion.nav>
+        </nav>
+      </header>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-40 lg:hidden bg-cream dark:bg-ink"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
           >
-            <div 
-              className="absolute inset-0 bg-black/20 backdrop-blur-sm" 
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white dark:bg-charcoal shadow-2xl"
-            >
-              <div className="pt-24 px-6 pb-8">
-                <div className="flex flex-col gap-2">
-                  {navLinks.map((link, index) => (
-                    <motion.div
-                      key={link.path}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <Link
-                        to={link.path}
-                        className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                          location.pathname === link.path
-                            ? 'bg-charcoal text-white dark:bg-white dark:text-charcoal'
-                            : 'text-charcoal dark:text-white hover:bg-beige dark:hover:bg-white/10'
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
-                <div className="mt-8">
-                  <Link
-                    to="/submit-order"
-                    className="btn-primary w-full text-center"
+            <div className="pt-24 px-6 pb-8 h-full flex flex-col overflow-y-auto">
+              <nav className="flex flex-col" aria-label="Mobile navigation">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.04 + index * 0.04 }}
                   >
-                    Start Your Order
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
+                    <Link
+                      to={link.path}
+                      className={`block py-4 text-2xl font-display border-b border-sand dark:border-white/10 transition-colors ${
+                        location.pathname === link.path
+                          ? 'text-clay italic'
+                          : 'text-ink dark:text-cream'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-auto pt-8 pb-4"
+              >
+                <Link to="/submit-order" className="btn-accent w-full text-center">
+                  Send a SHEIN Request
+                  <HiArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+                <p className="text-center text-xs text-charcoal/50 dark:text-cream/50 mt-4">
+                  Questions first? WhatsApp {BUSINESS.phoneDisplay}
+                </p>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
