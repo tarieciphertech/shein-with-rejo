@@ -18,8 +18,8 @@ export default function AdminLogin() {
     setIsSubmitting(true)
     setError('')
     try {
-      await login(email.trim(), password)
-      navigate('/admin/orders', { replace: true })
+      const result = await login(email.trim(), password)
+      navigate(result.data?.user?.mustChangePassword ? '/admin/account' : '/admin/orders', { replace: true })
     } catch (err) {
       setError(
         err.status === 401
@@ -54,37 +54,14 @@ export default function AdminLogin() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="admin-email" className="block text-sm font-medium text-ink dark:text-cream mb-1.5">Email</label>
-              <input
-                id="admin-email"
-                type="email"
-                required
-                autoComplete="username"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="input-field"
-              />
+              <input id="admin-email" type="email" required autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} className="input-field" />
             </div>
             <div>
               <label htmlFor="admin-password" className="block text-sm font-medium text-ink dark:text-cream mb-1.5">Password</label>
-              <input
-                id="admin-password"
-                type="password"
-                required
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input-field"
-              />
+              <input id="admin-password" type="password" required autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className="input-field" />
             </div>
             <button type="submit" className="btn-accent w-full" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <LoadingSpinner size="sm" />
-                  Signing in…
-                </>
-              ) : (
-                'Sign In'
-              )}
+              {isSubmitting ? <><LoadingSpinner size="sm" />Signing in…</> : 'Sign In'}
             </button>
           </form>
         </div>
