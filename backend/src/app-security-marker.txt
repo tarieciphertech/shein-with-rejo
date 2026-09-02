@@ -1,1 +1,0 @@
-Admin security routes are mounted by the deployment configuration.
