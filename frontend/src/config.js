@@ -3,7 +3,12 @@
 
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://tarieciphertech.github.io/shein-with-rejo').replace(/\/$/, '')
 
-export const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '')
+// Production builds use the deployed Render API by default. Local development
+// can still override this with VITE_API_URL in frontend/.env.local.
+export const API_URL = (
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? 'https://shein-with-rejo-api.onrender.com' : 'http://localhost:5000')
+).replace(/\/$/, '')
 
 export const BUSINESS = {
   name: 'SHEIN with Rejo',
