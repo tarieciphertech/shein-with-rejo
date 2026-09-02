@@ -3,15 +3,70 @@ import { HiArrowRight } from 'react-icons/hi2'
 import SEO from '../components/SEO'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
+import RevealImage from '../components/RevealImage'
+import { images } from '../data/images'
 import { BUSINESS } from '../config'
-import { howItWorksSteps } from '../data/content'
+
+const STAGES = [
+  {
+    key: 'find',
+    number: '01',
+    title: 'Find it',
+    description: 'Open the SHEIN app or website and find something you love. You do not need a SHEIN account or to check out — just look.',
+    chip: 'No account needed',
+    image: images.howItWorks.find,
+    aspect: '4/5',
+  },
+  {
+    key: 'send',
+    number: '02',
+    title: 'Send it',
+    description: 'Copy the product link, or take a screenshot. Either one works. Send it to Rejo through the request form.',
+    chip: 'Link or screenshot',
+    image: images.howItWorks.send,
+    aspect: '4/5',
+  },
+  {
+    key: 'check',
+    number: '03',
+    title: 'We check it',
+    description: 'Rejo reviews the request and confirms the details with you — size, colour, availability — before anything is ordered.',
+    chip: 'Confirmed with you',
+    image: images.howItWorks.check,
+    aspect: '4/5',
+  },
+  {
+    key: 'order',
+    number: '04',
+    title: 'We place it',
+    description: 'Payment is settled — EcoCash, cash or PayPal — and your confirmed request joins the next ordering cycle, every 3 days.',
+    chip: `Every ${BUSINESS.orderingCycleDays} days`, keyword: 'ordered',
+    image: images.howItWorks.order,
+    aspect: '4/5',
+  },
+  {
+    key: 'receive',
+    number: '05',
+    title: 'You receive it',
+    description: 'Follow it on the tracking page as it travels, then receive it at your door — free delivery in Harare.',
+    chip: 'Free in Harare',
+    image: images.howItWorks.receive,
+    aspect: '4/5',
+  },
+]
+
+const FINISHING_STEPS = [
+  { number: '06', title: 'Payment & confirmation', description: 'You receive the total, choose your method, and Rejo confirms everything before any order is placed.' },
+  { number: '07', title: 'Track your order', description: 'Use your request reference and phone number on the tracking page to see exactly where things stand.' },
+  { number: '08', title: 'Receive your items', description: 'We deliver to your address in Harare — free of charge.' },
+]
 
 export default function HowItWorks() {
   return (
     <>
       <SEO
         title="How It Works | SHEIN with Rejo"
-        description="From finding your item on SHEIN to delivery in Harare — the eight steps of ordering with Rejo, explained simply."
+        description="From finding your item on SHEIN to delivery in Harare — the steps of ordering with Rejo, told visually."
         path="/how-it-works"
       />
 
@@ -21,38 +76,64 @@ export default function HowItWorks() {
       >
         <p>
           Eight steps, one person helping you through all of them. Here's exactly what happens
-          when you order from SHEIN with Rejo.
+          when you order from SHEIN with Rejo
+        </p>
+        <p className="mt-3 text-sm text-charcoal/50 dark:text-cream/50">
+          Scroll through the story — each stage is one moment of your order's journey.
         </p>
       </PageHeader>
 
-      {/* Steps — editorial alternating layout */}
+      {/* Visual story stages */}
+      <section className="pb-20 lg:pb-28">
+        <div className="section-padding max-w-6xl mx-auto space-y-20 lg:space-y-28">
+          {STAGES.map((stage, index) => {
+            const flip = index % 2 === 1
+            return (
+              <div key={stage.key} className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                <Reveal className={`lg:col-span-6 ${flip ? 'lg:order-2' : ''}`}>
+                  <RevealImage
+                    src={stage.image.src}
+                    alt={stage.image.alt}
+                    aspect={stage.aspect}
+                    focal={stage.image.focal}
+                    className="w-full"
+                  />
+                </Reveal>
+                <div className={`lg:col-span-6 ${flip ? 'lg:order-1' : ''}`}>
+                  <Reveal>
+                    <span className="font-display italic text-6xl lg:text-7xl text-clay/30 dark:text-clay/40 leading-none" aria-hidden="true">
+                      {stage.number}
+                    </span>
+                    <h2 className="mt-4 text-2xl lg:text-4xl font-medium text-ink dark:text-cream">
+                      {stage.title}
+                    </h2>
+                    <p className="mt-4 text-charcoal/70 dark:text-cream/70 leading-relaxed lg:text-lg max-w-lg">
+                      {stage.description}
+                    </p>
+                    <span className="mt-6 inline-flex items-center gap-2 bg-clay-soft dark:bg-clay/15 text-clay-deep dark:text-clay text-sm font-semibold px-4 py-2 rounded-full">
+                      <span className="w-1.5 h-1.5 rounded-full bg-clay" aria-hidden="true" />
+                      {stage.chip}
+                    </span>
+                  </Reveal>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Finishing steps — quiet text row (image-first story above is the visual rest) */}
       <section className="pb-20 lg:pb-28">
         <div className="section-padding max-w-6xl mx-auto">
-          <ol className="grid md:grid-cols-2 gap-x-14">
-            {howItWorksSteps.map((step, index) => (
-              <Reveal
-                as="li"
-                key={step.number}
-                delay={(index % 2) * 0.08}
-                className={`border-t border-sand dark:border-white/10 py-8 lg:py-10 flex gap-5 sm:gap-7 ${
-                  index >= howItWorksSteps.length - 2 ? 'md:border-b md:border-sand md:dark:border-white/10' : ''
-                }`}
-              >
-                <span
-                  className={`font-display italic text-4xl lg:text-5xl leading-none shrink-0 ${
-                    index % 2 === 0 ? 'text-clay/40 dark:text-clay/60' : 'text-clay dark:text-clay'
-                  }`}
-                  aria-hidden="true"
-                >
-                  {step.number}
-                </span>
-                <div>
-                  <h2 className="text-lg lg:text-xl font-semibold text-ink dark:text-cream">{step.title}</h2>
-                  <p className="mt-2 text-charcoal/70 dark:text-cream/70 leading-relaxed">{step.description}</p>
-                </div>
+          <div className="grid md:grid-cols-3 gap-x-12 border-t border-sand dark:border-white/10">
+            {FINISHING_STEPS.map((step, index) => (
+              <Reveal as="div" key={step.number} delay={index * 0.06} className="py-8 lg:py-10 border-b border-sand dark:border-white/10 md:border-b-0">
+                <span className="font-display italic text-3xl text-clay/40 dark:text-clay/60" aria-hidden="true">{step.number}</span>
+                <h3 className="mt-3 text-lg font-semibold text-ink dark:text-cream">{step.title}</h3>
+                <p className="mt-2 text-sm text-charcoal/70 dark:text-cream/70 leading-relaxed">{step.description}</p>
               </Reveal>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
@@ -61,29 +142,43 @@ export default function HowItWorks() {
         <div className="section-padding max-w-6xl mx-auto">
           <Reveal>
             <div className="card-dark p-8 sm:p-14 lg:p-20 relative overflow-hidden">
-              <div className="absolute -right-8 -bottom-14 font-display italic font-medium text-[14rem] lg:text-[20rem] leading-none text-white/[0.04] select-none pointer-events-none" aria-hidden="true">
+              <div
+                className="absolute -right-8 -bottom-14 font-display italic font-medium text-[14rem] lg:text-[20rem] leading-none text-white/[0.04] select-none pointer-events-none"
+                aria-hidden="true"
+              >
                 {BUSINESS.orderingCycleDays}
               </div>
-              <div className="relative max-w-2xl">
-                <p className="eyebrow mb-4">The ordering cycle</p>
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium text-cream leading-tight">
-                  Orders go in every <span className="italic text-clay">{BUSINESS.orderingCycleDays} days.</span>
-                </h2>
-                <p className="mt-5 text-cream/70 leading-relaxed">
-                  We group customer requests and place orders every {BUSINESS.orderingCycleDays} days. Once your request is
-                  confirmed, it joins the next cycle — so you always know when it's moving into the
-                  ordering process. No guessing, and no pretending we can place your order the same
-                  minute you send it. Just a clear, predictable rhythm.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3.5">
-                  <Link to="/submit-order" className="btn-accent">
-                    Send My Request
-                    <HiArrowRight className="w-5 h-5 ml-2" />
-                  </Link>
-                  <Link to="/track-order" className="btn-ghost-light">
-                    Track an Order
-                  </Link>
+              <div className="relative grid lg:grid-cols-2 gap-12 items-center">
+                <div className="max-w-xl">
+                  <p className="eyebrow mb-4">The ordering cycle</p>
+                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium text-cream leading-tight">
+                    Orders go in every <span className="italic text-clay">{BUSINESS.orderingCycleDays} days.</span>
+                  </h2>
+                  <p className="mt-5 text-cream/70 leading-relaxed">
+                    We group customer requests and place orders every {BUSINESS.orderingCycleDays} days. Once your request is
+                    confirmed, it joins the next cycle — so you always know when it's moving into the
+                    ordering process. No guessing, and no pretending we can place your order the same
+                    minute you send it. Just a clear, predictable rhythm.
+                  </p>
+                  <p className="mt-4 text-cream/50 text-sm">
+                    We won't show you a fake countdown. Your status updates on the tracking page are the truth.
+                  </p>
+                  <div className="mt-8 flex flex-wrap gap-3.5">
+                    <Link to="/submit-order" className="btn-accent">
+                      Send My Request
+                      <HiArrowRight className="w-5 h-5 ml-2" />
+                    </Link>
+                    <Link to="/track-order" className="btn-ghost-light">
+                      Track an Order
+                    </Link>
+                  </div>
                 </div>
+                <RevealImage
+                  src={images.cycle.src}
+                  alt={images.cycle.alt}
+                  aspect="16/9"
+                  className="shadow-2xl shadow-ink/30"
+                />
               </div>
             </div>
           </Reveal>

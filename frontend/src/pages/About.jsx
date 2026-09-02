@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
+import RevealImage from '../components/RevealImage'
+import { images } from '../data/images'
 import { BUSINESS, whatsappLink, AFFILIATION_DISCLAIMER } from '../config'
 
 export default function About() {
@@ -20,21 +22,49 @@ export default function About() {
         </p>
       </PageHeader>
 
-      {/* Story */}
+      {/* Editorial opening visual */}
+      <section className="pb-20 lg:pb-24">
+        <div className="section-padding max-w-6xl mx-auto">
+          <RevealImage
+            src={images.about.large.src}
+            alt={images.about.large.alt}
+            aspect="21/9"
+            className="w-full"
+            caption="Made in Harare — with care."
+          />
+        </div>
+      </section>
+
+      {/* Story + image composition */}
       <section className="pb-20 lg:pb-28">
         <div className="section-padding max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12">
-            <Reveal direction="right" className="lg:col-span-5">
-              <div className="lg:sticky lg:top-28">
-                <div className="aspect-[4/5] rounded-2xl bg-linen dark:bg-white/5 border border-sand dark:border-white/10 flex flex-col items-center justify-center gap-4 p-8">
-                  <span className="w-24 h-24 rounded-full bg-ink dark:bg-cream text-cream dark:text-ink flex items-center justify-center font-display text-5xl font-medium" aria-hidden="true">R</span>
-                  <p className="font-display italic text-xl text-charcoal/70 dark:text-cream/70 text-center">Photo coming soon</p>
-                  <p className="text-xs text-charcoal/40 dark:text-cream/40 text-center max-w-[200px]">
-                    An authentic photo of Rejo will replace this placeholder.
-                  </p>
-                </div>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-28 space-y-6">
+                <Reveal direction="right">
+                  <RevealImage
+                    src={images.about.secondary.src}
+                    alt={images.about.secondary.alt}
+                    aspect="3/4"
+                  />
+                </Reveal>
+                {/*
+                  Rejo photo placeholder.
+                  Replace with an authentic client-provided photograph when available:
+                  drop the image at frontend/public/images/rejo-photo.webp and reference it
+                  here in place of this styled placeholder.
+                */}
+                <Reveal direction="right" delay={0.08}>
+                  <div className="aspect-[4/5] rounded-2xl bg-linen dark:bg-white/5 border border-sand dark:border-white/10 flex flex-col items-center justify-center gap-4 p-8">
+                    <span className="w-24 h-24 rounded-full bg-ink dark:bg-cream text-cream dark:text-ink flex items-center justify-center font-display text-5xl font-medium" aria-hidden="true">R</span>
+                    <p className="font-display italic text-xl text-charcoal/70 dark:text-cream/70 text-center">Rejo, your shopper</p>
+                    <p className="text-xs text-charcoal/40 dark:text-cream/40 text-center max-w-[220px]">
+                      An authentic photo of Rejo will sit here — carefully shot, not a stock image.
+                    </p>
+                  </div>
+                </Reveal>
               </div>
-            </Reveal>
+            </div>
 
             <div className="lg:col-span-7 space-y-10">
               <Reveal>

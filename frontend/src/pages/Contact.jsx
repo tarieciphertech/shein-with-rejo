@@ -11,6 +11,7 @@ import SEO from '../components/SEO'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
 import { BUSINESS, whatsappLink, WHATSAPP_MESSAGES } from '../config'
+import { images } from '../data/images'
 
 const channels = [
   {
@@ -119,20 +120,30 @@ export default function Contact() {
 
           {/* Ready to order */}
           <Reveal delay={0.1} className="mt-14">
-            <div className="card-dark p-8 sm:p-12 text-center">
-              <HiChatBubbleLeftRight className="w-10 h-10 text-clay mx-auto mb-4" aria-hidden="true" />
-              <h2 className="font-display text-2xl sm:text-3xl text-cream mb-3">Ready to send your first request?</h2>
-              <p className="text-cream/70 max-w-xl mx-auto">
-                You don't need everything figured out — a link or a screenshot is enough to start.
-              </p>
-              <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3.5">
-                <Link to="/submit-order" className="btn-accent">
-                  Send a SHEIN Request
-                  <HiArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-                <Link to="/faq" className="btn-ghost-light">
-                  Read the FAQ first
-                </Link>
+            <div className="relative overflow-hidden rounded-3xl min-h-[360px] flex items-center justify-center bg-ink">
+              <img
+                src={images.cta.src}
+                alt={images.cta.alt}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: images.cta.focal }}
+              />
+              <div className="absolute inset-0 bg-ink/60 dark:bg-ink/70" aria-hidden="true" />
+              <div className="relative text-center px-6 py-16 max-w-xl">
+                <HiChatBubbleLeftRight className="w-9 h-9 text-clay mx-auto mb-4" aria-hidden="true" />
+                <h2 className="font-display text-2xl sm:text-3xl text-cream mb-3">Ready to send your first request?</h2>
+                <p className="text-cream/80 max-w-xl mx-auto">
+                  You don't need everything figured out — a link or a screenshot is enough to start.
+                </p>
+                <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3.5">
+                  <Link to="/submit-order" className="btn-accent">
+                    Send a SHEIN Request
+                    <HiArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                  <Link to="/faq" className="btn-ghost-light">
+                    Read the FAQ first
+                  </Link>
+                </div>
               </div>
             </div>
           </Reveal>

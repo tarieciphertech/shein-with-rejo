@@ -94,6 +94,11 @@
   .rule {
     @apply w-12 h-px bg-clay;
   }
+
+  @keyframes slideProgress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
 }
 
 @layer utilities {

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import {
   HiArrowRight,
   HiArrowLeft,
@@ -15,7 +15,9 @@ import {
 import { FaWhatsapp } from 'react-icons/fa'
 import SEO from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
+import RevealImage from '../components/RevealImage'
 import { api } from '../lib/api'
+import { images } from '../data/images'
 import { BUSINESS, whatsappLink, WHATSAPP_MESSAGES } from '../config'
 
 const MAX_FILE_MB = 5
@@ -166,22 +168,35 @@ function ItemEditor({ item, index, onChange, onRemove, canRemove, errors }) {
         <span className="text-xs text-charcoal/40 dark:text-cream/40 mt-0.5">JPG, PNG or WebP · up to {MAX_FILE_MB}MB each</span>
       </label>
       {item.screenshots.length > 0 && (
-        <ul className="mt-3 flex flex-wrap gap-2.5">
+        <ul className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
           {item.screenshots.map((file, fi) => (
-            <li key={`${file.name}-${fi}`} className="relative">
-              <img
-                src={URL.createObjectURL(file)}
-                alt={`Screenshot ${fi + 1} of item ${index + 1}`}
-                className="w-16 h-16 object-cover rounded-lg border border-sand dark:border-white/10"
-              />
-              <button
-                type="button"
-                onClick={() => onChange({ ...item, screenshots: item.screenshots.filter((_, i) => i !== fi) })}
-                className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center"
-                aria-label={`Remove screenshot ${fi + 1}`}
-              >
-                <HiTrash className="w-3 h-3" aria-hidden="true" />
-              </button>
+            <li
+              key={`${file.name}-${fi}`}
+              className="relative bg-linen dark:bg-white/5 border border-sand dark:border-white/10 rounded-xl overflow-hidden"
+            >
+              <div className="relative aspect-[4/3]">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={`Screenshot ${fi + 1} of item ${index + 1}`}
+                  className="h-full w-full object-cover"
+                />
+                {/* Success state */}
+                <span className="absolute top-1.5 right-1.5 bg-clay text-white text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <HiCheckCircle className="w-3 h-3" aria-hidden="true" />
+                  Added
+                </span>
+                <button
+                  type="button"
+                  onClick={() => onChange({ ...item, screenshots: item.screenshots.filter((_, i) => i !== fi) })}
+                  className="absolute top-1.5 left-1.5 w-6 h-6 bg-ink/75 text-cream rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                  aria-label={`Remove screenshot ${fi + 1}`}
+                >
+                  <HiTrash className="w-3 h-3" aria-hidden="true" />
+                </button>
+              </div>
+              <p className="truncate px-2.5 py-2 text-[11px] text-charcoal/60 dark:text-cream/60" title={file.name}>
+                {file.name}
+              </p>
             </li>
           ))}
         </ul>
@@ -249,6 +264,7 @@ function ItemEditor({ item, index, onChange, onRemove, canRemove, errors }) {
 }
 
 export default function SubmitOrder() {
+  const reduceMotion = useReducedMotion()
   const [stageIndex, setStageIndex] = useState(0)
   const [items, setItems] = useState([emptyItem()])
   const [customer, setCustomer] = useState(emptyCustomer())
@@ -343,13 +359,45 @@ export default function SubmitOrder() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="w-20 h-20 rounded-full bg-clay-soft dark:bg-clay/15 flex items-center justify-center mx-auto mb-6">
-              <HiCheckCircle className="w-11 h-11 text-clay-deep dark:text-clay" aria-hidden="true" />
+            <div className="relative w-24 h-24 mx-auto mb-8" aria-hidden="true">
+              {!reduceMotion && (
+                <motion.span
+                  className="absolute -inset-3 rounded-full border border-clay"
+                  animate={{ scale: [1, 1.18, 1], opacity: [0.7, 0.2, 0.7] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              )}
+              <motion.span
+                initial={{ scale: 0, rotate: -16 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 230, damping: 13, delay: 0.12, duration: 0.7 }}
+                className="absolute inset-0 rounded-full bg-clay-soft dark:bg-clay/15 flex items-center justify-center"
+              >
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 15, delay: 0.3, duration: 0.6 }}
+                >
+                  <HiCheckCircle className="w-12 h-12 text-clay-deep dark:text-clay" />
+                </motion.span>
+              </motion.span>
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl text-ink dark:text-cream text-center">You're on the list ✨</h1>
-            <p className="mt-4 text-charcoal/70 dark:text-cream/70 text-center text-lg">
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-4xl sm:text-5xl text-ink dark:text-cream text-center"
+            >
+              You're on the list ✨
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="mt-4 text-charcoal/70 dark:text-cream/70 text-center text-lg"
+            >
               Your SHEIN request has been received.
-            </p>
+            </motion.p>
 
             <div className="mt-10 bg-white dark:bg-charcoal border border-sand dark:border-white/10 rounded-2xl p-6 sm:p-8">
               <dl className="space-y-4">
@@ -410,13 +458,54 @@ export default function SubmitOrder() {
   return (
     <section className="pt-32 pb-24 lg:pt-44 lg:pb-36 min-h-screen">
       <div ref={topRef} className="h-0" aria-hidden="true" />
-      <div className="section-padding max-w-2xl mx-auto">
+      <div className="section-padding max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         <SEO
           title="Send a Request | SHEIN with Rejo"
           description="Send us your SHEIN find — a product link or a screenshot, with your size, colour and quantity. Orders go in every 3 days with free delivery in Harare."
           path="/submit-order"
         />
 
+        {/* Visual sidebar — imagery reinforces "found it, send it" without touching the form */}
+        <aside className="lg:col-span-5" aria-label="The story behind sending a request">
+          <div className="lg:sticky lg:top-28">
+            {/* Mobile: compact visual intro before the form */}
+            <div className="lg:hidden relative overflow-hidden rounded-2xl aspect-[21/9]">
+              <img
+                src={images.order.side.src}
+                alt={images.order.side.alt}
+                loading="lazy"
+                className="h-full w-full object-cover"
+                style={{ objectPosition: images.order.side.focal }}
+              />
+            </div>
+
+            {/* Desktop: editorial composition + note */}
+            <div className="hidden lg:block">
+              <RevealImage
+                src={images.order.side.src}
+                alt={images.order.side.alt}
+                aspect="3/4"
+                focal={images.order.side.focal}
+              />
+              <motion.blockquote
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="mt-6 bg-white dark:bg-charcoal border border-sand dark:border-white/10 rounded-2xl p-6"
+              >
+                <p className="font-display italic text-xl text-ink dark:text-cream leading-relaxed">
+                  “Found something you love? Send it to Rejo — that's where it starts.”
+                </p>
+                <footer className="mt-3 text-sm text-charcoal/50 dark:text-cream/50">
+                  A link or one screenshot is enough to begin.
+                </footer>
+              </motion.blockquote>
+            </div>
+          </div>
+        </aside>
+
+        <div className="lg:col-span-7">
         <p className="eyebrow mb-4">Send a request</p>
         <h1 className="font-display text-4xl sm:text-5xl text-ink dark:text-cream">What did you find? 👀</h1>
         <p className="mt-4 text-charcoal/70 dark:text-cream/70 text-lg">
@@ -697,6 +786,7 @@ total with you, and only then will payment be arranged.
               )}
             </button>
           )}
+        </div>
         </div>
       </div>
     </section>
