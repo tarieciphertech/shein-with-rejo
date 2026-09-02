@@ -2,6 +2,7 @@ import crypto from 'crypto'
 import { query, withTransaction } from '../db.js'
 import { customerError } from '../middleware/errors.js'
 import { normalizePhone } from '../validation/schemas.js'
+import { notifyStatusChange } from './notifications.js'
 
 export const ORDER_STATUSES = ['pending', 'reviewed', 'priced', 'paid', 'ordered', 'shipped', 'delivered', 'cancelled']
 export const PAYMENT_STATUSES = ['pending', 'awaiting_confirmation', 'confirmed']
@@ -242,6 +243,8 @@ export async function getOrder(id) {
 
 /** Admin: update status / payment status / notes, recording history. */
 export async function updateOrder(id, patch, changedBy) {
+  let statusChanged = false
+
   const wasUpdated = await withTransaction(async (client) => {
     const current = await client.query('SELECT id, status FROM orders WHERE id = $1 FOR UPDATE', [id])
     if (current.rowCount === 0) return false
@@ -269,6 +272,7 @@ export async function updateOrder(id, patch, changedBy) {
     await client.query(`UPDATE orders SET ${sets.join(', ')} WHERE id = $${params.length}`, params)
 
     if (patch.status !== undefined && patch.status !== previousStatus) {
+      statusChanged = true
       await client.query(
         'INSERT INTO order_status_history (order_id, previous_status, new_status, changed_by) VALUES ($1, $2, $3, $4)',
         [id, previousStatus, patch.status, changedBy]
@@ -279,5 +283,13 @@ export async function updateOrder(id, patch, changedBy) {
   })
 
   if (!wasUpdated) return null
-  return getOrder(id)
+  const order = await getOrder(id)
+
+  if (statusChanged && order) {
+    // Notification failures must never make an otherwise successful admin
+    // status update fail.
+    void notifyStatusChange(order)
+  }
+
+  return order
 }
