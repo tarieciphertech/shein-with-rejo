@@ -59,8 +59,11 @@ CREATE TABLE IF NOT EXISTS order_status_history (
 CREATE INDEX IF NOT EXISTS order_status_history_order_idx ON order_status_history (order_id, created_at);
 
 CREATE TABLE IF NOT EXISTS admin_users (
-  id            BIGSERIAL PRIMARY KEY,
-  email         TEXT NOT NULL UNIQUE,
-  password_hash TEXT NOT NULL,
-  created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+  id                  BIGSERIAL PRIMARY KEY,
+  email               TEXT NOT NULL UNIQUE,
+  password_hash       TEXT NOT NULL,
+  must_change_password BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at          TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+ALTER TABLE admin_users
+  ADD COLUMN IF NOT EXISTS must_change_password BOOLEAN NOT NULL DEFAULT TRUE;
