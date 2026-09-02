@@ -2,6 +2,7 @@ import { Router } from 'express'
 import multer from 'multer'
 import { orderSchema, normalizePhone } from '../validation/schemas.js'
 import { createOrder, trackOrder } from '../services/orders.js'
+import { notifyNewOrder } from '../services/notifications.js'
 import { storage } from '../storage/index.js'
 import { customerError } from '../middleware/errors.js'
 import { config } from '../config.js'
@@ -83,6 +84,11 @@ router.post('/orders', (req, res, next) => {
     }
 
     const result = await createOrder({ payload, screenshotsByItem })
+
+    // Never make a successful order depend on an external notification
+    // provider. The notification service handles/logs its own failures.
+    void notifyNewOrder(result.reference)
+
     res.status(201).json({ success: true, data: result })
   } catch (error) {
     next(error)
