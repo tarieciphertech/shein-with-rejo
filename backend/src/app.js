@@ -8,6 +8,7 @@ import { errorHandler, notFound } from './middleware/errors.js'
 import { storage } from './storage/index.js'
 import publicRoutes from './routes/public.js'
 import adminRoutes from './routes/admin.js'
+import adminSecurityRoutes from './routes/adminSecurity.js'
 
 const app = express()
 
@@ -15,16 +16,15 @@ app.set('trust proxy', 1)
 app.disable('x-powered-by')
 
 app.use(helmet({
-  contentSecurityPolicy: false, // API serves no HTML; headers stay sane elsewhere
-  crossOriginResourcePolicy: { policy: 'cross-origin' }, // allow images from the Pages site
+  contentSecurityPolicy: false,
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
 }))
 
 app.use(
   cors({
     origin(origin, callback) {
-      // Allow non-browser tools (curl, health checks) with no origin.
       if (!origin || config.corsOrigins.includes(origin)) return callback(null, true)
-      return callback(null, false) // don't error; just don't emit CORS headers
+      return callback(null, false)
     },
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -40,7 +40,6 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
-// Screenshot files are served by unguessable random name only.
 app.get('/api/uploads/:filename', async (req, res, next) => {
   try {
     const buffer = await storage.read(req.params.filename)
@@ -56,6 +55,7 @@ app.get('/api/uploads/:filename', async (req, res, next) => {
 
 app.use('/api', publicRoutes)
 app.use('/api/admin', adminRoutes)
+app.use('/api/admin', adminSecurityRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
