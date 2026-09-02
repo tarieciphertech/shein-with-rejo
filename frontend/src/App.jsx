@@ -16,6 +16,7 @@ import Contact from './pages/Contact'
 import AdminLogin from './pages/admin/AdminLogin'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminOrderDetail from './pages/admin/AdminOrderDetail'
+import AdminAccount from './pages/admin/AdminAccount'
 import ProtectedAdmin from './pages/admin/ProtectedAdmin'
 
 function ScrollToTop() {
@@ -64,8 +65,15 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
 
-            {/* Admin */}
             <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin/account"
+              element={
+                <ProtectedAdmin allowPasswordChange>
+                  <AdminAccount />
+                </ProtectedAdmin>
+              }
+            />
             <Route
               path="/admin/orders"
               element={
