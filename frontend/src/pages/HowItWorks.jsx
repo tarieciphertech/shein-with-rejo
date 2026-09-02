@@ -32,7 +32,7 @@ const STAGES = [
     title: 'We check it',
     description: 'Rejo reviews the request and confirms the details with you — size, colour, availability — before anything is ordered.',
     chip: 'Confirmed with you',
-    image: images.howItWorks.check,
+    image: images.howItWorks.review,
     aspect: '4/5',
   },
   {
