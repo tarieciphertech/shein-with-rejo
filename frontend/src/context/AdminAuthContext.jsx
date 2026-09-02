@@ -9,45 +9,14 @@ export function AdminAuthProvider({ children }) {
 
   useEffect(() => {
     let cancelled = false
-    api
-      .adminMe()
-      .then((res) => {
-        if (!cancelled) setUser(res.data || null)
-      })
-      .catch(() => {
-        if (!cancelled) setUser(null)
-      })
-      .finally(() => {
-        if (!cancelled) setIsReady(true)
-      })
-    return () => {
-      cancelled = true
-    }
+    api.adminMe().then(res => { if (!cancelled) setUser(res.data?.user || null) }).catch(() => { if (!cancelled) setUser(null) }).finally(() => { if (!cancelled) setIsReady(true) })
+    return () => { cancelled = true }
   }, [])
 
-  const login = useCallback(async (email, password) => {
-    const res = await api.adminLogin(email, password)
-    setUser(res.data?.user || null)
-    return res
-  }, [])
+  const login = useCallback(async (email, password) => { const res = await api.adminLogin(email, password); setUser(res.data?.user || null); return res }, [])
+  const refresh = useCallback(async () => { const res = await api.adminMe(); setUser(res.data?.user || null); return res }, [])
+  const logout = useCallback(async () => { try { await api.adminLogout() } finally { setUser(null) } }, [])
 
-  const logout = useCallback(async () => {
-    try {
-      await api.adminLogout()
-    } finally {
-      setUser(null)
-    }
-  }, [])
-
-  return (
-    <AdminAuthContext.Provider value={{ user, isReady, login, logout }}>
-      {children}
-    </AdminAuthContext.Provider>
-  )
+  return <AdminAuthContext.Provider value={{ user, isReady, login, refresh, logout }}>{children}</AdminAuthContext.Provider>
 }
-
-export function useAdminAuth() {
-  const ctx = useContext(AdminAuthContext)
-  if (!ctx) throw new Error('useAdminAuth must be used within AdminAuthProvider')
-  return ctx
-}
+export function useAdminAuth() { const ctx = useContext(AdminAuthContext); if (!ctx) throw new Error('useAdminAuth must be used within AdminAuthProvider'); return ctx }
