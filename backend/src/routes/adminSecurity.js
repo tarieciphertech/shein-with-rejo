@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import rateLimit from 'express-rate-limit'
 import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import { query } from '../db.js'
@@ -10,6 +11,7 @@ import { sendEmail } from '../services/notifications.js'
 const router = Router()
 const MIN_PASSWORD_LENGTH = 12
 const RESET_TTL_MINUTES = 30
+const passwordResetLimiter = rateLimit({ windowMs: 60 * 60 * 1000, limit: 5, standardHeaders: true, legacyHeaders: false, message: { success: false, message: 'Too many password reset requests. Please wait an hour and try again.' } })
 
 function validatePassword(password) {
   if (typeof password !== 'string' || password.length < MIN_PASSWORD_LENGTH) throw customerError(400, `Password must be at least ${MIN_PASSWORD_LENGTH} characters long.`)
@@ -45,7 +47,7 @@ router.post('/change-password', requireAdmin, async (req, res, next) => {
   } catch (error) { next(error) }
 })
 
-router.post('/request-reset', async (req, res, next) => {
+router.post('/request-reset', passwordResetLimiter, async (req, res, next) => {
   try {
     const email = typeof req.body?.email === 'string' ? req.body.email.trim().toLowerCase() : ''
     const generic = { success: true, message: 'If that email is the admin account, a password reset link has been sent.' }
@@ -64,7 +66,7 @@ router.post('/request-reset', async (req, res, next) => {
   } catch (error) { next(error) }
 })
 
-router.post('/reset-password', async (req, res, next) => {
+router.post('/reset-password', passwordResetLimiter, async (req, res, next) => {
   try {
     const { token, newPassword } = req.body || {}
     if (typeof token !== 'string' || !token || typeof newPassword !== 'string') throw customerError(400, 'This reset link is invalid or incomplete.')
