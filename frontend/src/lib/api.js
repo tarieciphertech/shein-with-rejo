@@ -21,6 +21,8 @@ export const api = {
   adminMe: () => request('/api/admin/me'),
   adminSecurity: () => request('/api/admin/security'),
   adminChangePassword: (currentPassword, newPassword) => request('/api/admin/change-password', { method: 'POST', body: { currentPassword, newPassword } }),
+  adminRequestPasswordReset: (email) => request('/api/admin/request-reset', { method: 'POST', body: { email } }),
+  adminResetPassword: (token, newPassword) => request('/api/admin/reset-password', { method: 'POST', body: { token, newPassword } }),
   adminOrders: ({ search = '', status = '', paymentStatus = '', page = 1 } = {}) => { const params = new URLSearchParams(); if (search) params.set('search', search); if (status) params.set('status', status); if (paymentStatus) params.set('paymentStatus', paymentStatus); params.set('page', String(page)); return request(`/api/admin/orders?${params.toString()}`) },
   adminOrder: id => request(`/api/admin/orders/${encodeURIComponent(id)}`),
   adminUpdateOrder: (id, patch) => request(`/api/admin/orders/${encodeURIComponent(id)}`, { method: 'PATCH', body: patch }),
