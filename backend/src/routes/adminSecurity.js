@@ -19,7 +19,10 @@ function validatePassword(password) {
 }
 
 function hashToken(token) { return crypto.createHash('sha256').update(token).digest('hex') }
-function resetUrl(token) { return `${config.publicSiteUrl.replace(/\/$/, '')}/#/admin/reset-password?token=${encodeURIComponent(token)}` }
+function resetUrl(token) {
+  const base = config.publicSiteUrl.replace(/\/$/, '')
+  return `${base}/admin/reset-password?token=${encodeURIComponent(token)}`
+}
 
 router.get('/security', requireAdmin, async (req, res, next) => {
   try {
