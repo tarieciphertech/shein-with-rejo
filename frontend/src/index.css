@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply font-sans text-charcoal bg-cream antialiased;
+    @apply font-sans text-charcoal bg-cream antialiased dark:text-cream dark:bg-ink;
   }
 
   ::selection {
@@ -21,12 +21,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    *::before,
-    *::after {
+    html { scroll-behavior: auto; }
+    *, *,::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -50,7 +46,8 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center px-7 py-3.5 border border-ink/30 text-ink font-medium rounded-full
            transition-all duration-300 hover:border-ink hover:bg-ink hover:text-cream hover:-translate-y-0.5 active:translate-y-0
-           disabled:opacity-60 disabled:cursor-not-allowed;
+           disabled:opacity-60 disabled:cursor-not-allowed
+           dark:border-cream/30 dark:text-cream dark:hover:border-cream dark:hover:bg-cream dark:hover:text-ink;
   }
 
   .btn-ghost-light {
@@ -59,7 +56,8 @@
   }
 
   .card {
-    @apply bg-white rounded-2xl border border-sand/70 transition-shadow duration-300;
+    @apply bg-white rounded-2xl border border-sand/70 transition-shadow duration-300
+           dark:bg-charcoal dark:border-white/10;
   }
 
   .card-dark {
@@ -72,7 +70,12 @@
 
   .input-field {
     @apply w-full px-4 py-3 bg-white border border-sand rounded-xl text-charcoal placeholder-taupe
-           focus:outline-none focus:ring-2 focus:ring-clay/40 focus:border-clay transition-all duration-200;
+           focus:outline-none focus:ring-2 focus:ring-clay/40 focus:border-clay transition-all duration-200
+           dark:bg-ink dark:border-white/15 dark:text-cream dark:placeholder-cream/40 dark:caret-cream;
+  }
+
+  .input-field option {
+    @apply bg-white text-charcoal dark:bg-ink dark:text-cream;
   }
 
   .eyebrow {
@@ -87,13 +90,9 @@
     @apply content-[''] absolute -bottom-1 left-0 w-0 h-0.5 bg-clay transition-all duration-300;
   }
 
-  .nav-link:hover::after {
-    @apply w-full;
-  }
+  .nav-link:hover::after { @apply w-full; }
 
-  .rule {
-    @apply w-12 h-px bg-clay;
-  }
+  .rule { @apply w-12 h-px bg-clay; }
 
   @keyframes slideProgress {
     from { transform: scaleX(0); }
@@ -102,37 +101,13 @@
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-linen;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-taupe rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-clay;
-}
-
-.dark ::-webkit-scrollbar-track {
-  @apply bg-ink;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  @apply bg-white/20;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  @apply bg-white/30;
-}
-
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { @apply bg-linen; }
+::-webkit-scrollbar-thumb { @apply bg-taupe rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-clay; }
+.dark ::-webkit-scrollbar-track { @apply bg-ink; }
+.dark ::-webkit-scrollbar-thumb { @apply bg-white/20; }
+.dark ::-webkit-scrollbar-thumb:hover { @apply bg-white/30; }
