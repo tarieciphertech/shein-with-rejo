@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { HiArrowLeft, HiOutlineLogout } from 'react-icons/hi2'
+import { HiArrowLeft, HiArrowLeftOnRectangle } from 'react-icons/hi2'
 import SEO from '../../components/SEO'
 import { api } from '../../lib/api'
 import { useAdminAuth } from '../../context/AdminAuthContext'
@@ -47,7 +47,7 @@ export default function AdminAccount() {
             <p className="text-sm text-charcoal/60 dark:text-cream/60 mt-1">{user?.email}</p>
           </div>
           <button onClick={logout} className="inline-flex items-center gap-2 text-sm text-charcoal/60 dark:text-cream/60 hover:text-clay transition-colors">
-            <HiOutlineLogout className="w-4 h-4" />
+            <HiArrowLeftOnRectangle className="w-4 h-4" />
             Sign out
           </button>
         </div>
