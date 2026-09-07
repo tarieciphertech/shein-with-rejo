@@ -32,3 +32,10 @@ export const loginLimiter = rateLimit({
   limit: 10,
   message: { success: false, message: 'Too many sign-in attempts. Please wait a few minutes and try again.' },
 })
+
+export const passwordResetLimiter = rateLimit({
+  ...standardOptions,
+  windowMs: 15 * 60 * 1000,
+  limit: 5,
+  message: { success: false, message: 'Too many password recovery requests. Please wait a few minutes and try again.' },
+})
