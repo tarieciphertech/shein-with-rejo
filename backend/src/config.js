@@ -25,11 +25,15 @@ export const config = {
   jwtSecret: isProd
     ? required('JWT_SECRET', 'Required in production — generate one with `openssl rand -hex 64`.')
     : process.env.JWT_SECRET || 'dev-only-insecure-secret-change-me',
-  corsOrigins: (process.env.CORS_ORIGINS ||
-    'http://localhost:5173,https://tarieciphertech.github.io')
-    .split(',')
-    .map((o) => o.trim().replace(/\/$/, ''))
-    .filter(Boolean),
+  corsOrigins: Array.from(new Set([
+    ...(process.env.CORS_ORIGINS || '')
+      .split(',')
+      .map((o) => o.trim().replace(/\/$/, ''))
+      .filter(Boolean),
+    'http://localhost:5173',
+    'https://tarieciphertech.github.io',
+    'https://shopwithrejo.cyphertech.co.zw',
+  ])),
   cookieSecure: process.env.COOKIE_SECURE === 'true' || isProd,
   adminEmail: process.env.ADMIN_EMAIL || '',
   adminPasswordHash: process.env.ADMIN_PASSWORD_HASH || '',
@@ -40,7 +44,7 @@ export const config = {
 
   // Notification providers are optional. Orders must still work when a
   // provider is not configured; notification failures are logged only.
-  publicSiteUrl: process.env.PUBLIC_SITE_URL || 'https://tarieciphertech.github.io/shein-with-rejo',
+  publicSiteUrl: process.env.PUBLIC_SITE_URL || 'https://shopwithrejo.cyphertech.co.zw',
   adminNotificationEmail: process.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || '',
   adminWhatsAppTo: process.env.ADMIN_WHATSAPP_TO || '',
 
