@@ -1,7 +1,7 @@
 // Central site configuration.
 // Anything prefixed VITE_ is exposed to the browser — never put secrets here.
 
-export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://tarieciphertech.github.io/shein-with-rejo').replace(/\/$/, '')
+export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://shopwithrejo.cyphertech.co.zw').replace(/\/$/, '')
 
 // Production builds use the deployed Render API by default. Local development
 // can still override this with VITE_API_URL in frontend/.env.local.
