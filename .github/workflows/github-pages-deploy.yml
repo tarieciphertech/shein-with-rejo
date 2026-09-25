@@ -40,9 +40,11 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Add SPA fallback for direct routes
+      - name: Add SPA fallback and custom domain
         working-directory: frontend
-        run: cp dist/index.html dist/404.html
+        run: |
+          cp dist/index.html dist/404.html
+          printf '%s\n' 'shopwithrejo.cyphertech.co.zw' > dist/CNAME
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
