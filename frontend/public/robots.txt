@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 
-Sitemap: https://tarieciphertech.github.io/shein-with-rejo/sitemap.xml
+Sitemap: https://shopwithrejo.cyphertech.co.zw/sitemap.xml
