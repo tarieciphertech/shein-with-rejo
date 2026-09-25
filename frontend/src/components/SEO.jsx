@@ -9,11 +9,13 @@ export default function SEO({
   type = 'website',
 }) {
   const canonicalUrl = `${SITE_URL}${path === '/' ? '/' : path}`
+  const isPrivateAdminPage = path.startsWith('/admin')
 
   return (
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta name="robots" content={isPrivateAdminPage ? 'noindex, nofollow, noarchive' : 'index, follow, max-image-preview:large'} />
       <link rel="canonical" href={canonicalUrl} />
 
       <meta property="og:title" content={title} />
@@ -31,4 +33,3 @@ export default function SEO({
     </Helmet>
   )
 }
-
