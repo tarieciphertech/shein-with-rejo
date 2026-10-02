@@ -251,14 +251,8 @@ function FinalCta() {
       <Reveal>
         <div className="section-padding">
           <div className="relative overflow-hidden rounded-3xl min-h-[460px] flex items-center justify-center bg-ink">
-            <img
-              src={images.cta.src}
-              alt={images.cta.alt}
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: images.cta.focal }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/45 to-ink/30" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-br from-ink via-charcoal to-ink" aria-hidden="true" />
+            <div className="absolute -right-20 -top-24 h-80 w-80 rounded-full bg-clay/10 blur-3xl" aria-hidden="true" />
             <div className="relative text-center px-6 py-20 max-w-2xl mx-auto">
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-medium text-cream leading-tight text-balance">
                 Found something on SHEIN you can't stop thinking about?
