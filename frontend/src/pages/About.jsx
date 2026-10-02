@@ -2,9 +2,7 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
-import RevealImage from '../components/RevealImage'
 import RejoSlideshow from '../components/RejoSlideshow'
-import { images } from '../data/images'
 import { BUSINESS, whatsappLink, AFFILIATION_DISCLAIMER } from '../config'
 
 export default function About() {
@@ -23,16 +21,9 @@ export default function About() {
         </p>
       </PageHeader>
 
-      {/* Editorial opening visual */}
       <section className="pb-20 lg:pb-24">
         <div className="section-padding max-w-6xl mx-auto">
-          <RevealImage
-            src={images.about.large.src}
-            alt={images.about.large.alt}
-            aspect="21/9"
-            className="w-full"
-            caption="Made in Harare — with care."
-          />
+          <Reveal><RejoSlideshow label="Rejo — SHEIN with Rejo" /></Reveal>
         </div>
       </section>
 
@@ -42,21 +33,8 @@ export default function About() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
             <div className="lg:col-span-5">
               <div className="lg:sticky lg:top-28 space-y-6">
-                <Reveal direction="right">
-                  <RevealImage
-                    src={images.about.secondary.src}
-                    alt={images.about.secondary.alt}
-                    aspect="3/4"
-                  />
-                </Reveal>
                 <Reveal direction="right" delay={0.08}>
-                  <RevealImage
-                    src="/rejo.jpeg"
-                    alt="Rejo, the shopper behind SHEIN with Rejo"
-                    aspect="4/5"
-                    className="w-full"
-                    caption="Rejo, your shopper."
-                  />
+                  <RejoSlideshow label="Rejo — your shopper" />
                 </Reveal>
               </div>
             </div>
