@@ -4,10 +4,7 @@ import { HiArrowRight } from 'react-icons/hi2'
 import SEO from '../components/SEO'
 import Reveal from '../components/Reveal'
 import ImageCarousel from '../components/ImageCarousel'
-import ImageMarquee from '../components/ImageMarquee'
-import RevealImage from '../components/RevealImage'
 import RejoSlideshow from '../components/RejoSlideshow'
-import { images } from '../data/images'
 import { BUSINESS, whatsappLink, WHATSAPP_MESSAGES } from '../config'
 import { journeySteps } from '../data/content'
 
@@ -235,13 +232,12 @@ function CycleSection() {
                 You can follow every stage on the <Link to="/track-order" className="text-clay hover:underline underline-offset-4">tracking page</Link>.
               </p>
             </Reveal>
-            <RevealImage
-              src={images.cycle.src}
-              alt={images.cycle.alt}
-              aspect="16/9"
-              className="shadow-2xl shadow-ink/30"
-              delay={0.1}
-            />
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 sm:p-10 text-center">
+              <span className="font-display italic text-8xl text-clay">{BUSINESS.orderingCycleDays}</span>
+              <p className="mt-2 text-cream/70">days between ordering cycles</p>
+              <div className="mt-8 h-px bg-white/10" />
+              <p className="mt-6 text-sm text-cream/50">Clear, predictable ordering — with real status updates.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -296,27 +292,30 @@ function Home() {
         path="/"
       />
 
-      <HeroSlide hero={images.hero} />
+      <HeroSlide hero={[
+        { src: `${import.meta.env.BASE_URL}rejo.jpeg`, alt: 'Rejo, the shopper behind SHEIN with Rejo', focal: '50% 50%' },
+        { src: `${import.meta.env.BASE_URL}rejo2.jpg`, alt: 'Rejo, the shopper behind SHEIN with Rejo', focal: '50% 50%' },
+        { src: `${import.meta.env.BASE_URL}rejo3.jpg`, alt: 'Rejo, the shopper behind SHEIN with Rejo', focal: '50% 50%' },
+      ]} />
 
-      {/* ============ FASHION RAIL ============ */}
       <section className="py-20 lg:py-28 overflow-hidden bg-cream dark:bg-ink">
-        <div className="section-padding max-w-6xl mx-auto mb-12">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-            <Reveal className="max-w-xl">
-              <p className="eyebrow mb-4">The fashion rail</p>
-              <h2 className="font-display text-3xl sm:text-4xl font-medium text-ink dark:text-cream leading-tight">
-                A little mood board of <span className="italic text-clay">what gets ordered.</span>
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="text-sm text-charcoal/60 dark:text-cream/60 max-w-xs">
-                From the daily basics to the piece you'll keep for years. Find it on SHEIN —
-                Rejo handles the getting.
-              </p>
-            </Reveal>
+        <div className="section-padding max-w-6xl mx-auto">
+          <Reveal className="max-w-xl mb-12">
+            <p className="eyebrow mb-4">Simple by design</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-medium text-ink dark:text-cream leading-tight">
+              Find it. Send it. <span className="italic text-clay">We'll handle the rest.</span>
+            </h2>
+          </Reveal>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[['01','Find it','Browse SHEIN and save the item you want.'],['02','Send it','Send Rejo the link or a clear screenshot.'],['03','Get it','Confirm, pay and follow your order to delivery.']].map(([number,title,text]) => (
+              <div key={number} className="rounded-2xl border border-sand dark:border-white/10 bg-white dark:bg-charcoal p-6">
+                <span className="font-display italic text-3xl text-clay/60">{number}</span>
+                <h3 className="mt-3 font-semibold text-ink dark:text-cream">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-charcoal/60 dark:text-cream/60">{text}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <ImageMarquee items={images.rail} speed={75} />
       </section>
 
       <MeetRejo />
