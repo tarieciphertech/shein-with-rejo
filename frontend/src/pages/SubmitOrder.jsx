@@ -15,9 +15,7 @@ import {
 import { FaWhatsapp } from 'react-icons/fa'
 import SEO from '../components/SEO'
 import LoadingSpinner from '../components/LoadingSpinner'
-import RevealImage from '../components/RevealImage'
 import { api } from '../lib/api'
-import { images } from '../data/images'
 import { BUSINESS, whatsappLink, WHATSAPP_MESSAGES } from '../config'
 
 const MAX_FILE_MB = 5
@@ -470,23 +468,16 @@ export default function SubmitOrder() {
           <div className="lg:sticky lg:top-28">
             {/* Mobile: compact visual intro before the form */}
             <div className="lg:hidden relative overflow-hidden rounded-2xl aspect-[21/9]">
-              <img
-                src={images.order.side.src}
-                alt={images.order.side.alt}
-                loading="lazy"
-                className="h-full w-full object-cover"
-                style={{ objectPosition: images.order.side.focal }}
-              />
+              <div className="h-full w-full bg-linen dark:bg-white/5 flex items-center justify-center">
+                <span className="font-display italic text-5xl text-clay/60">Rejo</span>
+              </div>
             </div>
 
             {/* Desktop: editorial composition + note */}
             <div className="hidden lg:block">
-              <RevealImage
-                src={images.order.side.src}
-                alt={images.order.side.alt}
-                aspect="3/4"
-                focal={images.order.side.focal}
-              />
+              <div className="aspect-[3/4] overflow-hidden rounded-2xl">
+                <img src={`${import.meta.env.BASE_URL}rejo.jpeg`} alt="Rejo, the shopper behind SHEIN with Rejo" loading="lazy" className="h-full w-full object-cover" />
+              </div>
               <motion.blockquote
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
