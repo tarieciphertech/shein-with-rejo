@@ -235,12 +235,13 @@ function CycleSection() {
                 You can follow every stage on the <Link to="/track-order" className="text-clay hover:underline underline-offset-4">tracking page</Link>.
               </p>
             </Reveal>
-            <RevealImage src={images.cycle.src} alt={images.cycle.alt} aspect="16/9" className="shadow-2xl shadow-ink/30" delay={0.1} />
-              <span className="font-display italic text-8xl text-clay">{BUSINESS.orderingCycleDays}</span>
-              <p className="mt-2 text-cream/70">days between ordering cycles</p>
-              <div className="mt-8 h-px bg-white/10" />
-              <p className="mt-6 text-sm text-cream/50">Clear, predictable ordering — with real status updates.</p>
-            </div>
+            <RevealImage
+              src={images.cycle.src}
+              alt={images.cycle.alt}
+              aspect="16/9"
+              className="shadow-2xl shadow-ink/30"
+              delay={0.1}
+            />
           </div>
         </div>
       </div>
