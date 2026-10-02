@@ -3,6 +3,7 @@ import SEO from '../components/SEO'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
 import RevealImage from '../components/RevealImage'
+import RejoSlideshow from '../components/RejoSlideshow'
 import { images } from '../data/images'
 import { BUSINESS, whatsappLink, AFFILIATION_DISCLAIMER } from '../config'
 
