@@ -3,8 +3,6 @@ import { HiArrowRight } from 'react-icons/hi2'
 import SEO from '../components/SEO'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
-import RevealImage from '../components/RevealImage'
-import { images } from '../data/images'
 import { BUSINESS } from '../config'
 
 const STAGES = [
@@ -14,8 +12,6 @@ const STAGES = [
     title: 'Find it',
     description: 'Open the SHEIN app or website and find something you love. You do not need a SHEIN account or to check out — just look.',
     chip: 'No account needed',
-    image: images.howItWorks.find,
-    aspect: '4/5',
   },
   {
     key: 'send',
@@ -23,8 +19,6 @@ const STAGES = [
     title: 'Send it',
     description: 'Copy the product link, or take a screenshot. Either one works. Send it to Rejo through the request form.',
     chip: 'Link or screenshot',
-    image: images.howItWorks.send,
-    aspect: '4/5',
   },
   {
     key: 'check',
@@ -32,8 +26,6 @@ const STAGES = [
     title: 'We check it',
     description: 'Rejo reviews the request and confirms the details with you — size, colour, availability — before anything is ordered.',
     chip: 'Confirmed with you',
-    image: images.howItWorks.review,
-    aspect: '4/5',
   },
   {
     key: 'order',
@@ -41,8 +33,6 @@ const STAGES = [
     title: 'We place it',
     description: 'Payment is settled — EcoCash, cash or PayPal — and your confirmed request joins the next ordering cycle, every 3 days.',
     chip: `Every ${BUSINESS.orderingCycleDays} days`, keyword: 'ordered',
-    image: images.howItWorks.order,
-    aspect: '4/5',
   },
   {
     key: 'receive',
@@ -50,8 +40,6 @@ const STAGES = [
     title: 'You receive it',
     description: 'Follow it on the tracking page as it travels, then receive it at your door — free delivery in Harare.',
     chip: 'Free in Harare',
-    image: images.howItWorks.receive,
-    aspect: '4/5',
   },
 ]
 
@@ -90,14 +78,10 @@ export default function HowItWorks() {
             const flip = index % 2 === 1
             return (
               <div key={stage.key} className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-                <Reveal className={`lg:col-span-6 ${flip ? 'lg:order-2' : ''}`}>
-                  <RevealImage
-                    src={stage.image.src}
-                    alt={stage.image.alt}
-                    aspect={stage.aspect}
-                    focal={stage.image.focal}
-                    className="w-full"
-                  />
+                <Reveal className={'lg:col-span-2 ' + (flip ? 'lg:order-2' : '')}>
+                  <div className="aspect-square rounded-2xl bg-linen dark:bg-white/5 border border-sand dark:border-white/10 flex items-center justify-center">
+                    <span className="font-display italic text-7xl text-clay/60">{stage.number}</span>
+                  </div>
                 </Reveal>
                 <div className={`lg:col-span-6 ${flip ? 'lg:order-1' : ''}`}>
                   <Reveal>
@@ -173,12 +157,10 @@ export default function HowItWorks() {
                     </Link>
                   </div>
                 </div>
-                <RevealImage
-                  src={images.cycle.src}
-                  alt={images.cycle.alt}
-                  aspect="16/9"
-                  className="shadow-2xl shadow-ink/30"
-                />
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
+                  <span className="font-display italic text-8xl text-clay">{BUSINESS.orderingCycleDays}</span>
+                  <p className="mt-2 text-cream/70">days per ordering cycle</p>
+                </div>
               </div>
             </div>
           </Reveal>
