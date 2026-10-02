@@ -11,7 +11,6 @@ import SEO from '../components/SEO'
 import PageHeader from '../components/PageHeader'
 import Reveal from '../components/Reveal'
 import { BUSINESS, whatsappLink, WHATSAPP_MESSAGES } from '../config'
-import { images } from '../data/images'
 
 const channels = [
   {
@@ -121,13 +120,7 @@ export default function Contact() {
           {/* Ready to order */}
           <Reveal delay={0.1} className="mt-14">
             <div className="relative overflow-hidden rounded-3xl min-h-[360px] flex items-center justify-center bg-ink">
-              <img
-                src={images.cta.src}
-                alt={images.cta.alt}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: images.cta.focal }}
-              />
+              <div className="absolute inset-0 bg-gradient-to-br from-ink via-charcoal to-ink" aria-hidden="true" />
               <div className="absolute inset-0 bg-ink/60 dark:bg-ink/70" aria-hidden="true" />
               <div className="relative text-center px-6 py-16 max-w-xl">
                 <HiChatBubbleLeftRight className="w-9 h-9 text-clay mx-auto mb-4" aria-hidden="true" />
