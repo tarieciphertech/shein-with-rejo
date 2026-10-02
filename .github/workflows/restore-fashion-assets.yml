@@ -1,0 +1,26 @@
+name: Restore fashion imagery
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore images from known-good revision
+        run: |
+          git checkout 85e13000caa654a4bba3f9a2bd5994065085cdd7 -- frontend/public/images
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add frontend/public/images
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: restore missing fashion imagery"
+          git push
