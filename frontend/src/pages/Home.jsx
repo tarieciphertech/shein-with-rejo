@@ -6,6 +6,7 @@ import Reveal from '../components/Reveal'
 import ImageCarousel from '../components/ImageCarousel'
 import ImageMarquee from '../components/ImageMarquee'
 import RevealImage from '../components/RevealImage'
+import RejoSlideshow from '../components/RejoSlideshow'
 import { images } from '../data/images'
 import { BUSINESS, whatsappLink, WHATSAPP_MESSAGES } from '../config'
 import { journeySteps } from '../data/content'
@@ -115,17 +116,10 @@ function MeetRejo() {
     <section className="py-20 lg:py-32">
       <div className="section-padding max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
-          {/* Photo placeholder — swap with an authentic photo of Rejo when available */}
           <Reveal direction="right" className="lg:col-span-2">
             <div className="relative">
-              <div className="aspect-[4/5] rounded-2xl bg-linen dark:bg-white/5 border border-sand dark:border-white/10 flex flex-col items-center justify-center gap-4 p-8">
-                <span className="w-24 h-24 rounded-full bg-ink dark:bg-cream text-cream dark:text-ink flex items-center justify-center font-display text-5xl font-medium" aria-hidden="true">R</span>
-                <p className="font-display italic text-xl text-charcoal/70 dark:text-cream/70 text-center">Photo coming soon</p>
-                <p className="text-xs text-charcoal/40 dark:text-cream/40 text-center max-w-[200px]">
-                  A real photo of Rejo will live here — no stock photos, no filters.
-                </p>
-              </div>
-              <span className="absolute -bottom-4 -right-3 bg-clay text-white text-xs font-semibold uppercase tracking-widest2 px-4 py-2 rounded-full rotate-2">
+              <RejoSlideshow label="Rejo — your shopper in Harare" />
+              <span className="absolute -bottom-4 -right-3 bg-clay text-white text-xs font-semibold uppercase tracking-widest2 px-4 py-2 rounded-full rotate-2 z-20">
                 Your shopper in Harare
               </span>
             </div>
