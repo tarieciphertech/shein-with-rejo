@@ -42,7 +42,7 @@ const channels = [
     icon: HiMapPin,
     title: 'Where we operate',
     value: BUSINESS.location,
-    note: 'Delivery is currently free within Harare. Outside Harare? Message us to talk about your options.',
+    note: 'Free delivery is available only within Harare, Zimbabwe. Delivery outside Harare is not available.',
   },
 ]
 
@@ -51,7 +51,7 @@ export default function Contact() {
     <>
       <SEO
         title="Contact SHEIN with Rejo | Zimbabwe Ordering Support"
-        description="Contact Rejo about requesting SHEIN items from Zimbabwe. WhatsApp or call 0784 487 866, or email remudzamba@gmail.com. Based in Harare."
+        description="Contact Rejo about ordering SHEIN items in Zimbabwe. WhatsApp 0784 487 866 or email remudzamba@gmail.com. Rejo is based in Harare, where free delivery is available."
         path="/contact"
       />
 
