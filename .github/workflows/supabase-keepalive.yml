@@ -1,0 +1,40 @@
+name: Supabase Free Database Keepalive
+
+on:
+  schedule:
+    # Four small, read-only database queries per day (UTC).
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-free-db-keepalive
+  cancel-in-progress: false
+
+jobs:
+  database-check:
+    name: Run a read-only database activity check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Query Supabase
+        working-directory: backend
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: node src/scripts/keepalive.js
