@@ -1,14 +1,14 @@
 // Central site configuration.
 // Anything prefixed VITE_ is exposed to the browser — never put secrets here.
 
-export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://shopwithrejo.cyphertech.co.zw').replace(/\/$/, '')
+export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://shopwithrejo.co.zw').replace(/\\/$/, '')
 
 // Production builds use the deployed Render API by default. Local development
 // can still override this with VITE_API_URL in frontend/.env.local.
 export const API_URL = (
   import.meta.env.VITE_API_URL ||
   (import.meta.env.PROD ? 'https://shein-with-rejo-api.onrender.com' : 'http://localhost:5000')
-).replace(/\/$/, '')
+).replace(/\\/$/, '')
 
 export const BUSINESS = {
   name: 'SHEIN with Rejo',
