@@ -459,7 +459,7 @@ export default function SubmitOrder() {
       <div className="section-padding max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         <SEO
           title="Order from SHEIN in Zimbabwe | Submit a Request | SHEIN with Rejo"
-          description="Request items from SHEIN with Rejo. Send a product link or screenshot, plus your size, colour and quantity. Based in Harare, helping customers in Zimbabwe."
+          description="Request items from SHEIN with Rejo in Zimbabwe. Send a product link or screenshot, plus your size, colour and quantity. Free delivery is available only within Harare."
           path="/submit-order"
         />
 
@@ -648,7 +648,7 @@ export default function SubmitOrder() {
             {stage.key === 'delivery' && (
               <div className="bg-white dark:bg-charcoal border border-sand dark:border-white/10 rounded-2xl p-6 sm:p-8 space-y-5">
                 <div className="bg-clay-soft dark:bg-clay/15 rounded-xl p-4 text-sm text-clay-deep dark:text-clay">
-                  🚚 Delivery is currently <strong>free within Harare</strong>. Outside Harare?
+                  🚚 <strong>Free delivery is available only within Harare, Zimbabwe.</strong> We cannot deliver outside Harare.
                   <a
                     href={whatsappLink(WHATSAPP_MESSAGES.general)}
                     target="_blank"
