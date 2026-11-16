@@ -138,7 +138,7 @@ function MeetRejo() {
                   That's the whole idea behind SHEIN with Rejo. You find the piece — the dress, the sneakers, the little something for the kids. Then the hard part starts: international cards, shipping that doesn't reach Zimbabwe, sizes you're not sure about.
                 </p>
                 <p>
-                  Rejo takes that part over. You send what you found, she checks the details, places your order in the next cycle, and gets it to your door in Harare.
+                  Rejo takes that part over. You send what you found, she checks the details and places your order in the next cycle. Free delivery is available only within Harare, Zimbabwe.
                 </p>
               </div>
             </Reveal>
@@ -286,7 +286,7 @@ function Home() {
     <>
       <SEO
         title="SHEIN with Rejo | Order from SHEIN in Zimbabwe"
-        description="Found something on SHEIN you love? Send Rejo the link or a screenshot — orders go in every 3 days with free delivery in Harare, Zimbabwe."
+        description="Order from SHEIN in Zimbabwe with Rejo. Send a product link or screenshot and join the 3-day ordering cycle. Free delivery is available only within Harare."
         path="/"
       />
 
