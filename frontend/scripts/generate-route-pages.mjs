@@ -12,11 +12,11 @@ const routes = {
   },
   '/how-it-works': {
     title: 'How to Order from SHEIN in Zimbabwe | SHEIN with Rejo',
-    description: 'See how to request SHEIN items from Zimbabwe with Rejo: share a product link or screenshot, confirm the details and payment, then follow the order through its 3-day ordering cycle.',
+    description: 'See how to request SHEIN items from Zimbabwe with Rejo: share a product link or screenshot, confirm the details and payment, then follow the order through its 3-day ordering cycle. Free delivery is available only within Harare, Zimbabwe.',
   },
   '/submit-order': {
     title: 'Order from SHEIN in Zimbabwe | Submit a Request | SHEIN with Rejo',
-    description: 'Request items from SHEIN with Rejo. Send a product link or screenshot, plus your size, colour and quantity. Based in Harare, helping customers in Zimbabwe.',
+    description: 'Request items from SHEIN with Rejo. Send a product link or screenshot, plus your size, colour and quantity. Based in Harare, helping customers in Zimbabwe. Free delivery is available only within Harare.',
   },
   '/track-order': {
     title: 'Track Your SHEIN Order Request | SHEIN with Rejo Zimbabwe',
@@ -24,11 +24,11 @@ const routes = {
   },
   '/faq': {
     title: 'SHEIN Zimbabwe FAQs | Ordering, Payments & Delivery | Rejo',
-    description: 'Answers about requesting SHEIN items from Zimbabwe, accepted payment methods, Rejo’s 3-day ordering cycle, order tracking and current delivery arrangements.',
+    description: 'Answers about requesting SHEIN items from Zimbabwe, accepted payment methods, Rejo’s 3-day ordering cycle, order tracking and current delivery arrangements. Delivery is available only within Harare, Zimbabwe.',
   },
   '/contact': {
     title: 'Contact SHEIN with Rejo | Zimbabwe Ordering Support',
-    description: 'Contact Rejo about requesting SHEIN items from Zimbabwe. WhatsApp or call 0784 487 866, or email remudzamba@gmail.com. Based in Harare.',
+    description: 'Contact Rejo about requesting SHEIN items from Zimbabwe. WhatsApp or call 0784 487 866, or email remudzamba@gmail.com. Based in Harare. Free delivery is available only within Harare.',
   },
   '/admin': { title: 'SHEIN with Rejo Admin', description: 'Private administration area.' },
   '/admin/login': { title: 'Admin Sign In | SHEIN with Rejo', description: 'Private administration sign in.' },
