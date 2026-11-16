@@ -50,8 +50,8 @@ export default function Contact() {
   return (
     <>
       <SEO
-        title="Contact | SHEIN with Rejo"
-        description="Reach SHEIN with Rejo on WhatsApp or by phone at 0784 487 866, or email remudzamba@gmail.com. Serving customers in Harare, Zimbabwe."
+        title="Contact SHEIN with Rejo | Zimbabwe Ordering Support"
+        description="Contact Rejo about requesting SHEIN items from Zimbabwe. WhatsApp or call 0784 487 866, or email remudzamba@gmail.com. Based in Harare."
         path="/contact"
       />
 
