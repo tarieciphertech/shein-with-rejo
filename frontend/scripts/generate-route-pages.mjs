@@ -7,28 +7,28 @@ const source = path.join(dist, 'index.html')
 
 const routes = {
   '/about': {
-    title: 'About SHEIN with Rejo | SHEIN Ordering Service in Harare',
-    description: 'Meet Rejo and learn how this independent SHEIN ordering service helps customers in Harare and across Zimbabwe request fashion, shoes, beauty and accessories from SHEIN.',
+    title: 'About SHEIN with Rejo | Independent SHEIN Ordering Help in Zimbabwe',
+    description: 'Meet Rejo, an independent SHEIN ordering helper based in Harare. Learn how customers in Zimbabwe can request fashion, shoes, beauty and accessories they find on SHEIN.',
   },
   '/how-it-works': {
     title: 'How to Order from SHEIN in Zimbabwe | SHEIN with Rejo',
-    description: 'Learn how to order from SHEIN in Zimbabwe with Rejo: share a product link or screenshot, confirm your order details and payment, then follow the ordering cycle.',
+    description: 'See how to request SHEIN items from Zimbabwe with Rejo: share a product link or screenshot, confirm the details and payment, then follow the order through its 3-day ordering cycle.',
   },
   '/submit-order': {
-    title: 'Request a SHEIN Order in Zimbabwe | SHEIN with Rejo',
-    description: 'Send Rejo your SHEIN product link or screenshot, size, colour and quantity to request an order from Zimbabwe.',
+    title: 'Order from SHEIN in Zimbabwe | Submit a Request | SHEIN with Rejo',
+    description: 'Request items from SHEIN with Rejo. Send a product link or screenshot, plus your size, colour and quantity. Based in Harare, helping customers in Zimbabwe.',
   },
   '/track-order': {
-    title: 'Track Your SHEIN Order Request | SHEIN with Rejo',
-    description: 'Check the status of your SHEIN order request with Rejo using your order reference and phone number.',
+    title: 'Track Your SHEIN Order Request | SHEIN with Rejo Zimbabwe',
+    description: 'Check the latest status of your SHEIN order request with Rejo using your order reference and phone number.',
   },
   '/faq': {
-    title: 'SHEIN Zimbabwe: Ordering, Payments & Delivery FAQs | Rejo',
-    description: 'Find answers about ordering from SHEIN in Zimbabwe, payments, delivery in Harare, order tracking and Rejo’s ordering cycle.',
+    title: 'SHEIN Zimbabwe FAQs | Ordering, Payments & Delivery | Rejo',
+    description: 'Answers about requesting SHEIN items from Zimbabwe, accepted payment methods, Rejo’s 3-day ordering cycle, order tracking and current delivery arrangements.',
   },
   '/contact': {
-    title: 'Contact Rejo | SHEIN Orders in Harare, Zimbabwe',
-    description: 'Contact SHEIN with Rejo in Harare, Zimbabwe for help with product requests, order details, payments and delivery.',
+    title: 'Contact SHEIN with Rejo | Zimbabwe Ordering Support',
+    description: 'Contact Rejo about requesting SHEIN items from Zimbabwe. WhatsApp or call 0784 487 866, or email remudzamba@gmail.com. Based in Harare.',
   },
   '/admin': { title: 'SHEIN with Rejo Admin', description: 'Private administration area.' },
   '/admin/login': { title: 'Admin Sign In | SHEIN with Rejo', description: 'Private administration sign in.' },
