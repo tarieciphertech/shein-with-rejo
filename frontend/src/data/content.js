@@ -102,7 +102,7 @@ export const faqs = [
   },
   {
     question: 'Where do you deliver?',
-    answer: 'We currently deliver within Harare, and delivery in Harare is free. If you are outside Harare, message us on WhatsApp to talk about your options.',
+    answer: 'Delivery is available only within Harare, Zimbabwe, and it is free. We do not offer delivery outside Harare at this time.',
   },
   {
     question: 'What payment methods are available?',
