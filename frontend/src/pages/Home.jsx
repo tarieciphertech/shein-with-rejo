@@ -43,7 +43,7 @@ function HeroSlide({ hero }) {
                   transition={{ duration: 0.5, ease }}
                   className="eyebrow mb-5"
                 >
-                  SHEIN ordering service · Harare
+                  Independent SHEIN ordering service · Zimbabwe
                 </motion.p>
 
                 <motion.h1
