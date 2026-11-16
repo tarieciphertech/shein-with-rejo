@@ -9,12 +9,12 @@ export default function About() {
   return (
     <>
       <SEO
-        title="About | SHEIN with Rejo"
-        description="SHEIN with Rejo is an independent, Harare-based ordering service helping Zimbabwean customers get the items they find on SHEIN — without the payment and shipping headaches."
+        title="About SHEIN with Rejo | SHEIN Ordering Help in Zimbabwe"
+        description="Meet Rejo, an independent SHEIN ordering helper based in Harare. Learn how customers in Zimbabwe can request fashion, shoes, beauty and accessories they find on SHEIN."
         path="/about"
       />
 
-      <PageHeader eyebrow="About" title={<>A real person, helping real shoppers <span className="italic text-clay">in Harare.</span></>}>
+      <PageHeader eyebrow="About" title={<>A real person, helping shoppers <span className="italic text-clay">in Zimbabwe.</span></>}>
         <p>
           SHEIN with Rejo is a personal ordering service. Not a shop with its own stock, and not
           SHEIN — an independent helper between you and the things you've found on SHEIN.
