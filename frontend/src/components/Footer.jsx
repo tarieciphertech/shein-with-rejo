@@ -28,7 +28,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm leading-relaxed text-cream/60 max-w-xs">
-              A personal ordering service helping you get the SHEIN pieces you love, here in Zimbabwe. Orders go in every {BUSINESS.orderingCycleDays} days, with free delivery in Harare.
+              An independent ordering service helping customers in Zimbabwe request SHEIN items. Orders go in every {BUSINESS.orderingCycleDays} days. Free delivery is available only within Harare.
             </p>
             <a
               href={whatsappLink('Hi Rejo, I have a question about placing a SHEIN order.')}
@@ -62,7 +62,7 @@ export default function Footer() {
             <h2 className="text-xs font-semibold uppercase tracking-widest2 text-cream/40 mb-4">Good to know</h2>
             <ul className="space-y-3 text-sm text-cream/70">
               <li>Orders every {BUSINESS.orderingCycleDays} days</li>
-              <li>Free delivery in Harare</li>
+              <li>Free delivery in Harare only</li>
               <li>EcoCash · Cash · PayPal</li>
             </ul>
           </div>
