@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://shopwithrejo.cyphertech.co.zw/sitemap.xml
+Sitemap: https://shopwithrejo.co.zw/sitemap.xml
