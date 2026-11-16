@@ -50,8 +50,8 @@ export default function About() {
                   </p>
                   <p>
                     SHEIN with Rejo was started to close that gap. You find the item; Rejo handles the
-                    ordering, the payment process and the delivery, and keeps you updated until it reaches
-                    your door in Harare.
+                    ordering and payment process, and keeps you updated until your order is ready for delivery
+                    within Harare. Delivery is available only within Harare, Zimbabwe.
                   </p>
                 </div>
               </Reveal>
@@ -63,7 +63,7 @@ export default function About() {
                     You send a product link or a screenshot, with your size, colour and quantity. Rejo reviews
                     the request and confirms the details with you. Once payment is settled, your order joins
                     the next ordering cycle — orders go in every {BUSINESS.orderingCycleDays} days. Then you track
-                    it and receive it, with free delivery in Harare.
+                    it and receive it with free delivery at your Harare address. Delivery is available only within Harare.
                   </p>
                   <p>
                     You don't need a SHEIN account, an international payment card, or any special app.
