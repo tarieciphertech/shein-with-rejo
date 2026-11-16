@@ -649,15 +649,7 @@ export default function SubmitOrder() {
               <div className="bg-white dark:bg-charcoal border border-sand dark:border-white/10 rounded-2xl p-6 sm:p-8 space-y-5">
                 <div className="bg-clay-soft dark:bg-clay/15 rounded-xl p-4 text-sm text-clay-deep dark:text-clay">
                   🚚 <strong>Free delivery is available only within Harare, Zimbabwe.</strong> We cannot deliver outside Harare.
-                  <a
-                    href={whatsappLink(WHATSAPP_MESSAGES.general)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline underline-offset-2 ml-1"
-                  >
-                    Message us
-                  </a>
-                  and we'll talk about your options.
+
                 </div>
                 <div>
                   <label htmlFor="delivery-area" className="block text-sm font-medium text-ink dark:text-cream mb-1.5">
