@@ -27,8 +27,8 @@ export const BUSINESS = {
  * @param {string} [message] - Optional message for the customer's first chat.
  */
 export function whatsappLink(message) {
-  const base = \`https://wa.me/\${BUSINESS.whatsapp}\`
-  return message ? \`\${base}?text=\${encodeURIComponent(message)}\` : base
+  const base = `https://wa.me/${BUSINESS.whatsapp}`
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base
 }
 
 export const WHATSAPP_MESSAGES = {
