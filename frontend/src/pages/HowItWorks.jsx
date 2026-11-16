@@ -38,7 +38,7 @@ const STAGES = [
     key: 'receive',
     number: '05',
     title: 'You receive it',
-    description: 'Follow it on the tracking page as it travels, then receive it at your door — free delivery in Harare.',
+    description: 'Follow it on the tracking page as it travels, then receive it at your Harare address with free delivery.',
     chip: 'Free in Harare',
   },
 ]
@@ -46,7 +46,7 @@ const STAGES = [
 const FINISHING_STEPS = [
   { number: '06', title: 'Payment & confirmation', description: 'You receive the total, choose your method, and Rejo confirms everything before any order is placed.' },
   { number: '07', title: 'Track your order', description: 'Use your request reference and phone number on the tracking page to see exactly where things stand.' },
-  { number: '08', title: 'Receive your items', description: 'We deliver to your address in Harare — free of charge.' },
+  { number: '08', title: 'Receive your items', description: 'Free delivery is available only to addresses within Harare, Zimbabwe.' },
 ]
 
 export default function HowItWorks() {
@@ -54,7 +54,7 @@ export default function HowItWorks() {
     <>
       <SEO
         title="How to Order from SHEIN in Zimbabwe | SHEIN with Rejo"
-        description="See how to request SHEIN items from Zimbabwe with Rejo: share a product link or screenshot, confirm the details and payment, then follow the order through its 3-day ordering cycle."
+        description="Learn how to order SHEIN items with Rejo in Zimbabwe. Share a product link or screenshot, confirm payment and join the 3-day ordering cycle. Free delivery is available only within Harare."
         path="/how-it-works"
       />
 
@@ -188,7 +188,7 @@ export default function HowItWorks() {
                   <ul className="space-y-2 text-charcoal/70 dark:text-cream/70 list-disc list-inside">
                     <li>We can't control SHEIN's own stock or international shipping times</li>
                     <li>We're not SHEIN — an independent ordering service</li>
-                    <li>We currently deliver in Harare only; message us about other areas</li>
+                    <li>Delivery is available only within Harare, Zimbabwe</li>
                   </ul>
                 </div>
               </div>
