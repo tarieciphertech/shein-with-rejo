@@ -4,6 +4,24 @@ const base = import.meta.env.BASE_URL
 
 const rejoSlides = [
   {
+    src: `${base}rejo.jpeg`,
+    alt: 'Rejo, the shopper behind SHEIN with Rejo',
+    focal: '50% 50%',
+    caption: 'Meet Rejo — your personal shopper.',
+  },
+  {
+    src: `${base}rejo2.jpg`,
+    alt: 'Rejo from SHEIN with Rejo',
+    focal: '50% 50%',
+    caption: 'Personal service, with a familiar face.',
+  },
+  {
+    src: `${base}rejo3.jpg`,
+    alt: 'Rejo from SHEIN with Rejo',
+    focal: '50% 50%',
+    caption: 'Here to help with your SHEIN orders.',
+  },
+  {
     src: `${base}images/IMG-20261008-WA0012.jpg`,
     alt: 'Rejo, the shopper behind SHEIN with Rejo',
     focal: '50% 50%',
@@ -11,13 +29,13 @@ const rejoSlides = [
   },
   {
     src: `${base}images/IMG-20261008-WA0014.jpg`,
-    alt: 'Rejo, the shopper behind SHEIN with Rejo',
+    alt: 'Rejo from SHEIN with Rejo',
     focal: '50% 50%',
     caption: 'Personal service in Harare.',
   },
   {
     src: `${base}images/IMG-20261008-WA0016.jpg`,
-    alt: 'Rejo, the shopper behind SHEIN with Rejo',
+    alt: 'Rejo from SHEIN with Rejo',
     focal: '50% 50%',
     caption: 'Real help for your SHEIN order.',
   },
