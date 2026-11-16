@@ -19,7 +19,7 @@ export const BUSINESS = {
   email: 'remudzamba@gmail.com',
   location: 'Harare, Zimbabwe',
   orderingCycleDays: 3,
-  deliveryNote: 'Free delivery in Harare',
+  deliveryNote: 'Free delivery in Harare only',
 }
 
 /**
