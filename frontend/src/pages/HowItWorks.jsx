@@ -53,8 +53,8 @@ export default function HowItWorks() {
   return (
     <>
       <SEO
-        title="How It Works | SHEIN with Rejo"
-        description="From finding your item on SHEIN to delivery in Harare — the steps of ordering with Rejo, told visually."
+        title="How to Order from SHEIN in Zimbabwe | SHEIN with Rejo"
+        description="See how to request SHEIN items from Zimbabwe with Rejo: share a product link or screenshot, confirm the details and payment, then follow the order through its 3-day ordering cycle."
         path="/how-it-works"
       />
 
