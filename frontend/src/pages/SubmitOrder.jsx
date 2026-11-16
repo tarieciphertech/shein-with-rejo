@@ -458,8 +458,8 @@ export default function SubmitOrder() {
       <div ref={topRef} className="h-0" aria-hidden="true" />
       <div className="section-padding max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         <SEO
-          title="Send a Request | SHEIN with Rejo"
-          description="Send us your SHEIN find — a product link or a screenshot, with your size, colour and quantity. Orders go in every 3 days with free delivery in Harare."
+          title="Order from SHEIN in Zimbabwe | Submit a Request | SHEIN with Rejo"
+          description="Request items from SHEIN with Rejo. Send a product link or screenshot, plus your size, colour and quantity. Based in Harare, helping customers in Zimbabwe."
           path="/submit-order"
         />
 
