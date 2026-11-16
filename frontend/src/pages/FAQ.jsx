@@ -61,8 +61,8 @@ export default function FAQ() {
   return (
     <>
       <SEO
-        title="FAQ | SHEIN with Rejo"
-        description="Answers to common questions about ordering from SHEIN with Rejo — payments, the 3-day ordering cycle, delivery in Harare, tracking and more."
+        title="SHEIN Zimbabwe FAQs | Ordering, Payments & Delivery | Rejo"
+        description="Answers about requesting SHEIN items from Zimbabwe, accepted payment methods, Rejo’s 3-day ordering cycle, order tracking and current delivery arrangements."
         path="/faq"
       />
 
