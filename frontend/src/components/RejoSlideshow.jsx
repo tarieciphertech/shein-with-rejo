@@ -4,19 +4,19 @@ const base = import.meta.env.BASE_URL
 
 const rejoSlides = [
   {
-    src: `${base}IMG-20261008-WA0012.jpg`,
+    src: `${base}images/IMG-20261008-WA0012.jpg`,
     alt: 'Rejo, the shopper behind SHEIN with Rejo',
     focal: '50% 50%',
     caption: 'Rejo, your shopper.',
   },
   {
-    src: `${base}IMG-20261008-WA0014.jpg`,
+    src: `${base}images/IMG-20261008-WA0014.jpg`,
     alt: 'Rejo, the shopper behind SHEIN with Rejo',
     focal: '50% 50%',
     caption: 'Personal service in Harare.',
   },
   {
-    src: `${base}IMG-20261008-WA0016.jpg`,
+    src: `${base}images/IMG-20261008-WA0016.jpg`,
     alt: 'Rejo, the shopper behind SHEIN with Rejo',
     focal: '50% 50%',
     caption: 'Real help for your SHEIN order.',
