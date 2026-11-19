@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 import { SITE_URL, BUSINESS } from '../config'
 
+const NOINDEX_PATHS = new Set(['/submit-order', '/track-order'])
+
 export default function SEO({
   title = `${BUSINESS.name} | Order from SHEIN in Zimbabwe`,
   description = 'Found something on SHEIN you love? Rejo helps customers in Zimbabwe order from SHEIN — send a link or screenshot, and orders go in every 3 days with free delivery in Harare.',
@@ -9,13 +11,16 @@ export default function SEO({
   type = 'website',
 }) {
   const canonicalUrl = `${SITE_URL}${path === '/' ? '/' : path}`
-  const isPrivateAdminPage = path.startsWith('/admin')
+  const isPrivatePage = path.startsWith('/admin') || NOINDEX_PATHS.has(path)
+  const robots = isPrivatePage
+    ? 'noindex, nofollow, noarchive'
+    : 'index, follow, max-image-preview:large'
 
   return (
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="robots" content={isPrivateAdminPage ? 'noindex, nofollow, noarchive' : 'index, follow, max-image-preview:large'} />
+      <meta name="robots" content={robots} />
       <link rel="canonical" href={canonicalUrl} />
 
       <meta property="og:title" content={title} />
