@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://shopwithrejo.co.zw/</loc>
-  </url>
-  <url>
-    <loc>https://shopwithrejo.co.zw/about</loc>
-  </url>
-  <url>
-    <loc>https://shopwithrejo.co.zw/how-it-works</loc>
-  </url>
-  <url>
-    <loc>https://shopwithrejo.co.zw/submit-order</loc>
-  </url>
-  <url>
-    <loc>https://shopwithrejo.co.zw/faq</loc>
-  </url>
-  <url>
-    <loc>https://shopwithrejo.co.zw/contact</loc>
-  </url>
+  <url><loc>https://shopwithrejo.co.zw/</loc></url>
+  <url><loc>https://shopwithrejo.co.zw/about</loc></url>
+  <url><loc>https://shopwithrejo.co.zw/how-it-works</loc></url>
+  <url><loc>https://shopwithrejo.co.zw/faq</loc></url>
+  <url><loc>https://shopwithrejo.co.zw/contact</loc></url>
 </urlset>
