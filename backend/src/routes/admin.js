@@ -6,6 +6,7 @@ import { listOrders, getOrder, updateOrder } from '../services/orders.js'
 import { requireAdmin, issueAdminCookie, clearAdminCookie, signAdminSession } from '../middleware/auth.js'
 import { loginLimiter } from '../middleware/security.js'
 import { customerError } from '../middleware/errors.js'
+import { storage } from '../storage/index.js'
 
 const router = Router()
 
@@ -39,6 +40,22 @@ router.get('/me', requireAdmin, async (req, res, next) => {
     const admin = result.rows[0]
     if (!admin) throw customerError(404, 'Admin account not found.')
     res.json({ success: true, data: { user: { email: admin.email, mustChangePassword: admin.must_change_password } } })
+  } catch (error) {
+    next(error)
+  }
+})
+
+// Keep customer-submitted screenshots private: browsers request these image
+// URLs with the same HttpOnly admin cookie used by the dashboard.
+router.get('/uploads/:filename', requireAdmin, async (req, res, next) => {
+  try {
+    const buffer = await storage.read(req.params.filename)
+    if (!buffer) throw customerError(404, 'This screenshot is no longer available.')
+    res.setHeader('Content-Type', storage.contentType(req.params.filename))
+    res.setHeader('Content-Disposition', 'inline')
+    res.setHeader('Cache-Control', 'private, no-store, max-age=0')
+    res.setHeader('X-Content-Type-Options', 'nosniff')
+    return res.send(buffer)
   } catch (error) {
     next(error)
   }
