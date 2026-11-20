@@ -9,13 +9,44 @@ export function AdminAuthProvider({ children }) {
 
   useEffect(() => {
     let cancelled = false
-    api.adminMe().then(res => { if (!cancelled) setUser(res.data?.user || null) }).catch(() => { if (!cancelled) setUser(null) }).finally(() => { if (!cancelled) setIsReady(true) })
+    api.adminMe()
+      .then(res => { if (!cancelled) setUser(res.data?.user || null) })
+      .catch(() => { if (!cancelled) setUser(null) })
+      .finally(() => { if (!cancelled) setIsReady(true) })
     return () => { cancelled = true }
   }, [])
 
-  const login = useCallback(async (email, password) => { const res = await api.adminLogin(email, password); setUser(res.data?.user || null); return res }, [])
-  const refresh = useCallback(async () => { const res = await api.adminMe(); setUser(res.data?.user || null); return res }, [])
-  const logout = useCallback(async () => { try { await api.adminLogout() } finally { setUser(null) } }, [])
+  // A successful login response only confirms the password. It does not prove
+  // that the browser stored the HttpOnly session cookie. Verify it before the
+  // UI is allowed to show an authenticated state or navigate to protected pages.
+  const login = useCallback(async (email, password) => {
+    await api.adminLogin(email, password)
+    try {
+      const session = await api.adminMe()
+      const verifiedUser = session.data?.user
+      if (!verifiedUser) throw new Error('The server did not confirm the admin session.')
+      setUser(verifiedUser)
+      return { data: { user: verifiedUser } }
+    } catch (error) {
+      setUser(null)
+      if (error.status === 401) {
+        const sessionError = new Error('Your sign-in was accepted, but this browser did not retain the secure session. Please allow cookies for this site and try again.')
+        sessionError.status = 401
+        throw sessionError
+      }
+      throw error
+    }
+  }, [])
+
+  const refresh = useCallback(async () => {
+    const res = await api.adminMe()
+    setUser(res.data?.user || null)
+    return res
+  }, [])
+
+  const logout = useCallback(async () => {
+    try { await api.adminLogout() } finally { setUser(null) }
+  }, [])
 
   return <AdminAuthContext.Provider value={{ user, isReady, login, refresh, logout }}>{children}</AdminAuthContext.Provider>
 }
