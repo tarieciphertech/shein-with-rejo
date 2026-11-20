@@ -32,7 +32,8 @@ export const config = {
       .filter(Boolean),
     'http://localhost:5173',
     'https://tarieciphertech.github.io',
-    'https://shopwithrejo.cyphertech.co.zw',
+    'https://shopwithrejo.co.zw',
+    'https://www.shopwithrejo.co.zw',
   ])),
   cookieSecure: process.env.COOKIE_SECURE === 'true' || isProd,
   adminEmail: process.env.ADMIN_EMAIL || '',
@@ -44,7 +45,7 @@ export const config = {
 
   // Notification providers are optional. Orders must still work when a
   // provider is not configured; notification failures are logged only.
-  publicSiteUrl: process.env.PUBLIC_SITE_URL || 'https://shopwithrejo.cyphertech.co.zw',
+  publicSiteUrl: process.env.PUBLIC_SITE_URL || 'https://shopwithrejo.co.zw',
   adminNotificationEmail: process.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || '',
   adminWhatsAppTo: process.env.ADMIN_WHATSAPP_TO || '',
 
