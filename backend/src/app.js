@@ -4,8 +4,7 @@ import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import { config } from './config.js'
 import { generalLimiter } from './middleware/security.js'
-import { errorHandler, notFound } from './middleware/errors.js'
-import { storage } from './storage/index.js'
+import { notFound, errorHandler } from './middleware/errors.js'
 import publicRoutes from './routes/public.js'
 import adminRoutes from './routes/admin.js'
 import adminSecurityRoutes from './routes/adminSecurity.js'
@@ -51,6 +50,15 @@ app.get('/api/uploads/:filename', async (req, res, next) => {
   } catch (error) {
     return next(error)
   }
+})
+
+// Admin identity, order data, and session responses must never be cached by
+// Safari, a service worker, a proxy, or the browser's back/forward cache.
+app.use('/api/admin', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, private, max-age=0')
+  res.setHeader('Pragma', 'no-cache')
+  res.setHeader('Expires', '0')
+  next()
 })
 
 app.use('/api', publicRoutes)
