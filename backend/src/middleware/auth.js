@@ -7,7 +7,9 @@ export function issueAdminCookie(res, token) {
   res.cookie(ADMIN_COOKIE, token, {
     httpOnly: true,
     secure: config.cookieSecure,
-    sameSite: config.cookieSecure ? 'none' : 'lax',
+    // Frontend and API now share the shopwithrejo.co.zw site.
+    // Lax allows same-site requests while avoiding third-party cookie rules.
+    sameSite: 'lax',
     maxAge: 1000 * 60 * 60 * 8, // 8 hours
     path: '/',
   })
