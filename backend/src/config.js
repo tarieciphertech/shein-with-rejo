@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const isProd = process.env.NODE_ENV === 'production'
+const storageDriver = (process.env.STORAGE_DRIVER || (isProd ? 'supabase' : 'local')).toLowerCase()
 
 function required(name, message) {
   const value = process.env[name]
@@ -38,13 +39,15 @@ export const config = {
   cookieSecure: process.env.COOKIE_SECURE === 'true' || isProd,
   adminEmail: process.env.ADMIN_EMAIL || '',
   adminPasswordHash: process.env.ADMIN_PASSWORD_HASH || '',
+  storageDriver,
+  supabaseUrl: process.env.SUPABASE_URL || '',
+  supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+  supabaseBucket: process.env.SUPABASE_STORAGE_BUCKET || 'order-screenshots',
   uploadDir: path.isAbsolute(process.env.UPLOAD_DIR || '')
     ? process.env.UPLOAD_DIR
     : path.resolve(path.dirname(__dirname), process.env.UPLOAD_DIR || './uploads'),
   maxUploadMb: parseInt(process.env.MAX_UPLOAD_MB || '5', 10),
 
-  // Notification providers are optional. Orders must still work when a
-  // provider is not configured; notification failures are logged only.
   publicSiteUrl: process.env.PUBLIC_SITE_URL || 'https://shopwithrejo.co.zw',
   adminNotificationEmail: process.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || '',
   adminWhatsAppTo: process.env.ADMIN_WHATSAPP_TO || '',
@@ -64,4 +67,12 @@ if (config.isProd && config.jwtSecret === 'dev-only-insecure-secret-change-me') 
   process.exit(1)
 }
 
-fs.mkdirSync(config.uploadDir, { recursive: true })
+if (config.storageDriver === 'supabase') {
+  required('SUPABASE_URL', 'Required when STORAGE_DRIVER=supabase.')
+  required('SUPABASE_SERVICE_ROLE_KEY', 'Set the server-side Supabase secret/service_role key in Render. Never expose it to the browser.')
+  if (config.isProd && config.maxUploadMb > 5) {
+    console.warn('[config] Screenshot upload limit exceeds the configured bucket limit (5MB).')
+  }
+} else {
+  fs.mkdirSync(config.uploadDir, { recursive: true })
+}
