@@ -1,10 +1,7 @@
 /**
- * Storage abstraction for order screenshots.
- *
- * The default driver stores files on local disk with random, unguessable
- * names. For production, implement the same interface against object
- * storage (e.g. S3, Cloudflare R2, Backblaze B2) and select it with an
- * environment variable — no other code needs to change.
+ * Screenshot storage abstraction.
+ * Production uses a private Supabase Storage bucket; local disk remains
+ * available for development and tests.
  */
 import fs from 'fs/promises'
 import path from 'path'
@@ -24,7 +21,6 @@ const localDriver = {
     return { filename, size: buffer.length }
   },
 
-  /** Returns the file buffer, or null if it does not exist. */
   async read(filename) {
     if (!safeNamePattern.test(filename)) return null
     try {
@@ -40,6 +36,49 @@ const localDriver = {
   },
 }
 
-// TODO(production): add an S3-compatible driver. Required environment
-// variables will be S3_ENDPOINT, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY.
-export const storage = localDriver
+function storageHeaders(contentType) {
+  return {
+    apikey: config.supabaseServiceRoleKey,
+    Authorization: `Bearer ${config.supabaseServiceRoleKey}`,
+    ...(contentType ? { 'Content-Type': contentType } : {}),
+  }
+}
+
+const supabaseDriver = {
+  async save(buffer, extension) {
+    const filename = randomName(extension)
+    const response = await fetch(
+      `${config.supabaseUrl}/storage/v1/object/${config.supabaseBucket}/${filename}`,
+      {
+        method: 'POST',
+        headers: { ...storageHeaders(localDriver.contentType(filename)), 'x-upsert': 'false' },
+        body: buffer,
+      }
+    )
+    if (!response.ok) {
+      const detail = await response.text().catch(() => '')
+      console.error('[storage] Supabase upload failed:', response.status, detail.slice(0, 500))
+      throw new Error('Screenshot storage is temporarily unavailable. Please try again.')
+    }
+    return { filename, size: buffer.length }
+  },
+
+  async read(filename) {
+    if (!safeNamePattern.test(filename)) return null
+    const response = await fetch(
+      `${config.supabaseUrl}/storage/v1/object/${config.supabaseBucket}/${filename}`,
+      { headers: storageHeaders() }
+    )
+    if (response.status === 404) return null
+    if (!response.ok) {
+      const detail = await response.text().catch(() => '')
+      console.error('[storage] Supabase download failed:', response.status, detail.slice(0, 500))
+      throw new Error('Screenshot storage is temporarily unavailable.')
+    }
+    return Buffer.from(await response.arrayBuffer())
+  },
+
+  contentType: localDriver.contentType,
+}
+
+export const storage = config.storageDriver === 'supabase' ? supabaseDriver : localDriver

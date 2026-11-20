@@ -3,7 +3,6 @@ import cors from 'cors'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import { config } from './config.js'
-import { storage } from './storage/index.js'
 import { generalLimiter } from './middleware/security.js'
 import { notFound, errorHandler } from './middleware/errors.js'
 import publicRoutes from './routes/public.js'
@@ -38,19 +37,6 @@ app.use(generalLimiter)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
-})
-
-app.get('/api/uploads/:filename', async (req, res, next) => {
-  try {
-    const buffer = await storage.read(req.params.filename)
-    if (!buffer) return res.status(404).json({ success: false, message: 'Not found' })
-    res.setHeader('Content-Type', storage.contentType(req.params.filename))
-    res.setHeader('Cache-Control', 'private, max-age=3600')
-    res.setHeader('X-Content-Type-Options', 'nosniff')
-    return res.send(buffer)
-  } catch (error) {
-    return next(error)
-  }
 })
 
 // Admin identity, order data, and session responses must never be cached by
