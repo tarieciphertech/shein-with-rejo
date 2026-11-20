@@ -3,11 +3,11 @@
 
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://shopwithrejo.co.zw').replace(/\/$/, '')
 
-// Production builds use the deployed Render API by default. Local development
-// can still override this with VITE_API_URL in frontend/.env.local.
+// Keep the API on the business domain so Safari and other browsers treat
+// the admin session cookie as first-party, same-site traffic.
 export const API_URL = (
   import.meta.env.VITE_API_URL ||
-  (import.meta.env.PROD ? 'https://shein-with-rejo-api.onrender.com' : 'http://localhost:5000')
+  (import.meta.env.PROD ? 'https://api.shopwithrejo.co.zw' : 'http://localhost:5000')
 ).replace(/\/$/, '')
 
 export const BUSINESS = {
