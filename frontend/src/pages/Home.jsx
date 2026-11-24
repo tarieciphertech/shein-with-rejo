@@ -285,8 +285,8 @@ function Home() {
   return (
     <>
       <SEO
-        title="SHEIN with Rejo | Order from SHEIN in Zimbabwe"
-        description="Order from SHEIN in Zimbabwe with Rejo. Send a product link or screenshot and join the 3-day ordering cycle. Free delivery is available only within Harare."
+        title="Order from SHEIN in Zimbabwe | SHEIN with Rejo, Harare"
+        description="Want to order from SHEIN in Zimbabwe? Send Rejo your product link or screenshot. Orders are placed every 3 days. Free delivery is available only within Harare."
         path="/"
       />
 
