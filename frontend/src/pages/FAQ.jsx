@@ -58,6 +58,19 @@ function FAQItem({ faq, index }) {
 }
 
 export default function FAQ() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
+
   return (
     <>
       <SEO
@@ -65,6 +78,7 @@ export default function FAQ() {
         description="Find answers about ordering from SHEIN in Zimbabwe, payment methods, the 3-day ordering cycle, order tracking and delivery. Free delivery is available only within Harare."
         path="/faq"
       />
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       <PageHeader
         eyebrow="FAQ"
