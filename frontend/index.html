@@ -7,6 +7,12 @@
     <meta name="theme-color" content="#FAF7F1" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="googlebot" content="index, follow, max-image-preview:large" />
+    <!-- Preserve old Search Console subdomain URLs by forwarding them to the canonical business domain. -->
+    <script>
+      if (window.location.hostname === "shopwithrejo.cyphertech.co.zw") {
+        window.location.replace("https://shopwithrejo.co.zw" + window.location.pathname + window.location.search + window.location.hash);
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
